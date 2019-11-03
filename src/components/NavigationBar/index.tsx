@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import './styles.css';
 
-const NavigationBar = () =>  {
+const NavigationBar = () => {
   return (
     <div className="navigation-bar">
       <Link to="/">Home</Link>

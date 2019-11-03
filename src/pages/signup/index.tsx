@@ -2,7 +2,7 @@ import React from 'react';
 
 import './styles.css';
 
-const SignupPage = () =>  {
+const SignupPage = () => {
   return (
     <div className="signup">
       Signup
