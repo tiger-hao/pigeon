@@ -3,15 +3,15 @@ import {
   BrowserRouter as Router,
   Switch,
   Route
-} from "react-router-dom";
+} from 'react-router-dom';
 
 import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import Routes from "constants/routes";
-import NavigationBar from "components/NavigationBar";
-import SignupPage from "pages/signup";
+import Routes from 'constants/routes';
+import NavigationBar from 'components/NavigationBar';
+import SignupPage from 'pages/signup';
 
 const App: React.FC = () => {
   return (
