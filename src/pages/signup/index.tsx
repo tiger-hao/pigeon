@@ -7,12 +7,12 @@ const SignupPage = () => {
   return (
     <Container>
       <Row className="justify-content-center">
-        <Col xs={4}>
+        <Col md={4}>
           <h1>Sign Up</h1>
         </Col>
       </Row>
       <Row className="justify-content-center">
-        <Col xs={4}>
+        <Col md={4}>
           <Form className="signup">
             <Form.Group controlId="signup-email">
               <Form.Label>Email</Form.Label>
