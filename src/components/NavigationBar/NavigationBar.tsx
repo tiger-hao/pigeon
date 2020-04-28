@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import './styles.css';
+import './NavigationBar.css';
 
-const NavigationBar = () => {
+export const NavigationBar = () => {
   return (
     <div className="navigation-bar">
       <Link to="/">Home</Link>
@@ -11,5 +11,3 @@ const NavigationBar = () => {
     </div>
   );
 };
-
-export default NavigationBar;

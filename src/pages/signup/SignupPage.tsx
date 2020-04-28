@@ -1,9 +1,9 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 
-import SignupForm from 'components/SignupForm';
+import { SignupForm } from 'components/SignupForm/SignupForm';
 
-const SignupPage = () => {
+export const SignupPage = () => {
   return (
     <Container>
       <Row className="justify-content-center">
@@ -19,5 +19,3 @@ const SignupPage = () => {
     </Container>
   );
 };
-
-export default SignupPage;

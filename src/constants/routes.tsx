@@ -1,6 +1,4 @@
-enum Routes {
+export enum Routes {
   LOGIN = "/login",
   SIGNUP = "/signup",
 };
-
-export default Routes;
