@@ -11,6 +11,9 @@ const schema = Yup.object({
     .min(8, "Must be at least 8 characters long")
     .matches(/\d/, "Must contain a number")
     .required("Required"),
+  passwordConfirmation: Yup.string()
+    .oneOf([Yup.ref("password")], "Passwords must match")
+    .required("Required")
 })
 
 export const SignupForm = () => (
@@ -19,9 +22,10 @@ export const SignupForm = () => (
     initialValues={{
       email: "",
       password: "",
+      passwordConfirmation: ""
     }}
     onSubmit={values => {
-      console.log(values);
+      alert(JSON.stringify(values));
     }}
   >
     {({
@@ -61,9 +65,23 @@ export const SignupForm = () => (
               {errors.password}
             </Form.Control.Feedback>
           </Form.Group>
+          <Form.Group controlId="signup-password-confirmation">
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Control
+              type="password"
+              name="passwordConfirmation"
+              value={values.passwordConfirmation}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              isInvalid={touched.passwordConfirmation && !!errors.passwordConfirmation}
+            />
+            <Form.Control.Feedback type="invalid">
+              {errors.passwordConfirmation}
+            </Form.Control.Feedback>
+          </Form.Group>
           <Button type="submit">
             Sign Up
-        </Button>
+          </Button>
         </Form>
       )}
   </Formik>
