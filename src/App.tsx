@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import logo from './logo.svg';
@@ -25,22 +21,20 @@ const App: React.FC = () => {
         <img src={logo} className="App-logo" alt="logo" />
         <b>Pigeon</b>
       </header>
-      <Router>
-        <NavigationBar />
-        <Switch>
-          <Route path={Routes.HOME} exact>
-            <div>
-              {JSON.stringify(user)}
-            </div>
-          </Route>
-          <Route path={Routes.LOGIN}>
-            <LoginPage />
-          </Route>
-          <Route path={Routes.SIGNUP}>
-            <SignupPage />
-          </Route>
-        </Switch>
-      </Router>
+      <NavigationBar />
+      <Switch>
+        <Route exact path={Routes.HOME}>
+          <div>
+            {JSON.stringify(user)}
+          </div>
+        </Route>
+        <Route path={Routes.LOGIN}>
+          <LoginPage />
+        </Route>
+        <Route path={Routes.SIGNUP}>
+          <SignupPage />
+        </Route>
+      </Switch>
     </div>
   );
 }
