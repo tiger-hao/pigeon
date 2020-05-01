@@ -16,7 +16,7 @@ const schema = Yup.object({
     .required("Required")
 })
 
-export const SignupForm = () => (
+export const SignupForm: React.FC = () => (
   <Formik
     validationSchema={schema}
     initialValues={{

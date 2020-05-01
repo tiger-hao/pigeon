@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { LoginForm } from 'components/LoginForm';
 
-export const LoginPage = () => {
+export const LoginPage: React.FC = () => {
   return (
     <Container>
       <Row className="justify-content-center">

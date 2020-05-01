@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import './NavigationBar.css';
 
-export const NavigationBar = () => {
+export const NavigationBar: React.FC = () => {
   return (
     <div className="navigation-bar">
       <Link to="/">Home</Link>
