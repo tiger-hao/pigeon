@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-
-import { SignupForm } from 'components/SignupForm/SignupForm';
+import { SignupForm } from 'components/SignupForm';
 
 export const SignupPage = () => {
   return (

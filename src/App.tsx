@@ -11,7 +11,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { Routes } from 'constants/routes';
 import { NavigationBar } from 'components/NavigationBar/NavigationBar';
-import { SignupPage } from 'pages/signup/SignupPage';
+import { SignupPage } from 'pages/SignupPage';
+import { LoginPage } from 'pages/LoginPage';
 
 const App: React.FC = () => {
   return (
@@ -23,12 +24,14 @@ const App: React.FC = () => {
       <Router>
         <NavigationBar />
         <Switch>
+          <Route path={Routes.LOGIN}>
+            <LoginPage />
+          </Route>
           <Route path={Routes.SIGNUP}>
             <SignupPage />
           </Route>
         </Switch>
       </Router>
-
     </div>
   );
 }
