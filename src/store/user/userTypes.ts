@@ -1,19 +1,12 @@
 import { Action } from 'redux';
+import { IName } from 'types';
+import { IUserLoginInfo, IUserSignupInfo } from 'services/userService';
 
 export interface IUserState {
+  name: IName;
   email: string;
   token: string;
-  error?: Error;
-}
-
-export interface IUserSignupInfo {
-  email: string;
-  password: string;
-}
-
-export interface IUserLoginInfo {
-  email: string;
-  password: string;
+  error: any;
 }
 
 export enum UserActionTypes {
@@ -26,6 +19,17 @@ export enum UserActionTypes {
   SIGNUP_FAILURE = "pigeon/user/SIGNUP_FAILURE"
 }
 
+export interface ILoginSuccessPayload {
+  email: string;
+  token: string;
+}
+
+export interface ISignupSuccessPayload {
+  name: IName;
+  email: string;
+  token: string;
+}
+
 export interface ILoginRequestAction extends Action<UserActionTypes.LOGIN_REQUEST> {
   payload: {
     loginInfo: IUserLoginInfo;
@@ -33,14 +37,12 @@ export interface ILoginRequestAction extends Action<UserActionTypes.LOGIN_REQUES
 }
 
 export interface ILoginSuccessAction extends Action<UserActionTypes.LOGIN_SUCCESS> {
-  payload: {
-    user: IUserState;
-  }
+  payload: ILoginSuccessPayload;
 }
 
 export interface ILoginFailureAction extends Action<UserActionTypes.LOGIN_FAILURE> {
   payload: {
-    error: Error;
+    error: any;
   }
 }
 
@@ -53,14 +55,12 @@ export interface ISignupRequestAction extends Action<UserActionTypes.SIGNUP_REQU
 }
 
 export interface ISignupSuccessAction extends Action<UserActionTypes.SIGNUP_SUCCESS> {
-  payload: {
-    user: IUserState;
-  }
+  payload: ISignupSuccessPayload;
 }
 
 export interface ISignupFailureAction extends Action<UserActionTypes.SIGNUP_FAILURE> {
   payload: {
-    error: Error;
+    error: any;
   }
 }
 

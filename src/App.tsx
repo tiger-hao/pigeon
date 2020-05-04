@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import logo from './logo.svg';
@@ -14,6 +14,7 @@ import { LoginPage } from 'pages/LoginPage';
 
 const App: React.FC = () => {
   const user = useSelector((state: IRootState) => state.user);
+  const loggedIn = true;
 
   return (
     <div className="App">
@@ -24,9 +25,15 @@ const App: React.FC = () => {
       <NavigationBar />
       <Switch>
         <Route exact path={Routes.HOME}>
-          <div>
-            {JSON.stringify(user)}
-          </div>
+          {loggedIn
+            ?
+            <div>
+              {JSON.stringify(user)}
+            </div>
+            :
+            <Redirect to={Routes.LOGIN} />
+          }
+
         </Route>
         <Route path={Routes.LOGIN}>
           <LoginPage />
@@ -37,6 +44,6 @@ const App: React.FC = () => {
       </Switch>
     </div>
   );
-}
+};
 
 export default App;

@@ -1,8 +1,9 @@
 import {
-  IUserLoginInfo, IUserSignupInfo, IUserState, UserActionTypes,
-  ILoginRequestAction, ILoginSuccessAction, ILoginFailureAction, ILogoutAction,
-  ISignupRequestAction, ISignupSuccessAction, ISignupFailureAction
+  UserActionTypes, ILogoutAction,
+  ILoginRequestAction, ILoginSuccessAction, ILoginFailureAction, ILoginSuccessPayload,
+  ISignupRequestAction, ISignupSuccessAction, ISignupFailureAction, ISignupSuccessPayload
 } from './userTypes';
+import { IUserLoginInfo, IUserSignupInfo } from 'services/userService';
 
 export const loginRequest = (loginInfo: IUserLoginInfo): ILoginRequestAction => ({
   type: UserActionTypes.LOGIN_REQUEST,
@@ -11,11 +12,9 @@ export const loginRequest = (loginInfo: IUserLoginInfo): ILoginRequestAction => 
   }
 });
 
-export const loginSuccess = (user: IUserState): ILoginSuccessAction => ({
+export const loginSuccess = (payload: ILoginSuccessPayload): ILoginSuccessAction => ({
   type: UserActionTypes.LOGIN_SUCCESS,
-  payload: {
-    user
-  }
+  payload
 });
 
 export const loginFailure = (error: Error): ILoginFailureAction => ({
@@ -36,11 +35,9 @@ export const signupRequest = (signupInfo: IUserSignupInfo): ISignupRequestAction
   }
 });
 
-export const signupSuccess = (user: IUserState): ISignupSuccessAction => ({
+export const signupSuccess = (payload: ISignupSuccessPayload): ISignupSuccessAction => ({
   type: UserActionTypes.SIGNUP_SUCCESS,
-  payload: {
-    user
-  }
+  payload
 });
 
 export const signupFailure = (error: Error): ISignupFailureAction => ({
