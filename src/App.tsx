@@ -9,12 +9,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { RootState } from 'store/rootReducer';
 import { Routes } from 'constants/routes';
 import { NavigationBar } from 'components/NavigationBar/NavigationBar';
-import { SignupPage } from 'pages/SignupPage';
-import { LoginPage } from 'pages/LoginPage';
+import { AuthPage } from 'pages/AuthPage';
+import { LoginForm } from 'components/LoginForm';
+import { SignupForm } from 'components/SignupForm';
 
 const App: React.FC = () => {
-  const authState = useSelector((state: RootState) => state.auth);
-  const loggedIn = true;
+  const loggedIn = !!useSelector((state: RootState) => state.auth.token);
 
   return (
     <div className="App">
@@ -28,7 +28,7 @@ const App: React.FC = () => {
           {loggedIn
             ?
             <div>
-              {JSON.stringify(authState)}
+              {`Logged in: ${loggedIn}`}
             </div>
             :
             <Redirect to={Routes.LOGIN} />
@@ -36,10 +36,14 @@ const App: React.FC = () => {
 
         </Route>
         <Route path={Routes.LOGIN}>
-          <LoginPage />
+          <AuthPage header="Sign in">
+            <LoginForm />
+          </AuthPage>
         </Route>
         <Route path={Routes.SIGNUP}>
-          <SignupPage />
+          <AuthPage header="Sign up">
+            <SignupForm />
+          </AuthPage>
         </Route>
       </Switch>
     </div>

@@ -91,7 +91,7 @@ export const SignupForm: React.FC = () => {
           <Form.Group controlId="signup-email">
             <Form.Label>
               Email
-          </Form.Label>
+            </Form.Label>
             <Form.Control type="email" name="email" value={values.email}
               onChange={handleChange} onBlur={handleBlur}
               isInvalid={touched.email && !!errors.email}
@@ -104,7 +104,7 @@ export const SignupForm: React.FC = () => {
           <Form.Group controlId="signup-password">
             <Form.Label>
               Password
-          </Form.Label>
+            </Form.Label>
             <Form.Control type="password" name="password" value={values.password}
               onChange={handleChange} onBlur={handleBlur}
               isInvalid={touched.password && !!errors.password}
@@ -117,7 +117,7 @@ export const SignupForm: React.FC = () => {
           <Form.Group controlId="signup-password-confirmation">
             <Form.Label>
               Confirm Password
-          </Form.Label>
+            </Form.Label>
             <Form.Control type="password" name="passwordConfirmation" value={values.passwordConfirmation}
               onChange={handleChange} onBlur={handleBlur}
               isInvalid={touched.passwordConfirmation && !!errors.passwordConfirmation}
