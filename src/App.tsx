@@ -6,14 +6,14 @@ import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { IRootState } from 'store/rootReducer';
+import { RootState } from 'store/rootReducer';
 import { Routes } from 'constants/routes';
 import { NavigationBar } from 'components/NavigationBar/NavigationBar';
 import { SignupPage } from 'pages/SignupPage';
 import { LoginPage } from 'pages/LoginPage';
 
 const App: React.FC = () => {
-  const authState = useSelector((state: IRootState) => state.auth);
+  const authState = useSelector((state: RootState) => state.auth);
   const loggedIn = true;
 
   return (

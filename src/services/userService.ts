@@ -1,30 +1,30 @@
 import axios from 'axios';
-import { IName } from 'types';
+import { Name } from 'types';
 import { ApiResponse } from './ApiResponse';
 
-export interface IUserLoginInfo {
+export interface UserLoginInfo {
   email: string;
   password: string;
 }
 
-export interface IUserSignupInfo {
-  name: IName;
+export interface UserSignupInfo {
+  name: Name;
   email: string;
   password: string;
 }
 
-export interface IUserTokenResponse {
+export interface UserTokenResponse {
   access_token: string;
   token_type: string;
 }
 
-export interface IGetUserResponse {
-  name: IName;
+export interface GetUserResponse {
+  name: Name;
   email: string;
 }
 
-export async function loginUser(loginInfo: IUserLoginInfo): Promise<IUserTokenResponse> {
-  const { data: { data } } = await axios.post<ApiResponse<IUserTokenResponse>>(`${process.env.REACT_APP_API_BASE_URL}/auth/token`, loginInfo);
+export async function loginUser(loginInfo: UserLoginInfo): Promise<UserTokenResponse> {
+  const { data: { data } } = await axios.post<ApiResponse<UserTokenResponse>>(`${process.env.REACT_APP_API_BASE_URL}/auth/token`, loginInfo);
 
   if (!data) {
     throw Error("Data expected but not received from API response");
@@ -33,8 +33,8 @@ export async function loginUser(loginInfo: IUserLoginInfo): Promise<IUserTokenRe
   return data;
 }
 
-export async function signupUser(signupInfo: IUserSignupInfo): Promise<IUserTokenResponse> {
-  const { data: { data } } = await axios.post<ApiResponse<IUserTokenResponse>>(`${process.env.REACT_APP_API_BASE_URL}/users`, signupInfo);
+export async function signupUser(signupInfo: UserSignupInfo): Promise<UserTokenResponse> {
+  const { data: { data } } = await axios.post<ApiResponse<UserTokenResponse>>(`${process.env.REACT_APP_API_BASE_URL}/users`, signupInfo);
 
   if (!data) {
     throw Error("Data expected but not received from API response");
@@ -43,8 +43,8 @@ export async function signupUser(signupInfo: IUserSignupInfo): Promise<IUserToke
   return data;
 }
 
-export async function getUser(): Promise<IGetUserResponse> {
-  const { data: { data } } = await axios.get<ApiResponse<IGetUserResponse>>(`${process.env.REACT_APP_API_BASE_URL}/users/me`);
+export async function getUser(): Promise<GetUserResponse> {
+  const { data: { data } } = await axios.get<ApiResponse<GetUserResponse>>(`${process.env.REACT_APP_API_BASE_URL}/users/me`);
 
   if (!data) {
     throw Error("Data expected but not received from API response");

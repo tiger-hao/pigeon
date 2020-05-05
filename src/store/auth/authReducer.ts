@@ -1,7 +1,7 @@
 import { Reducer } from 'redux';
-import { AuthActionTypes, IAuthState, IAuthAction } from './authTypes';
+import { AuthActionTypes, AuthState, AuthAction } from './authTypes';
 
-const INITIAL_STATE: IAuthState = {
+const INITIAL_STATE: AuthState = {
   name: {
     first: '',
     last: ''
@@ -12,7 +12,7 @@ const INITIAL_STATE: IAuthState = {
   error: ''
 };
 
-export const authReducer: Reducer<IAuthState, IAuthAction> = (state = INITIAL_STATE, action) => {
+export const authReducer: Reducer<AuthState, AuthAction> = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case AuthActionTypes.LOGIN_REQUEST:
     case AuthActionTypes.SIGNUP_REQUEST:

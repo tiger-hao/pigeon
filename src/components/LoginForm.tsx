@@ -6,12 +6,12 @@ import Button from 'react-bootstrap/Button';
 import { useDispatch } from 'react-redux';
 import { loginRequest } from 'store/auth/authActions';
 
-interface ILoginFormValues {
+interface LoginFormValues {
   email: string;
   password: string;
 }
 
-const schema = Yup.object<ILoginFormValues>({
+const schema = Yup.object<LoginFormValues>({
   email: Yup.string()
     .email("Invalid email")
     .required("Enter your email"),
@@ -19,7 +19,7 @@ const schema = Yup.object<ILoginFormValues>({
     .required("Enter your password")
 });
 
-const initialValues: ILoginFormValues = {
+const initialValues: LoginFormValues = {
   email: "",
   password: ""
 };
@@ -27,7 +27,7 @@ const initialValues: ILoginFormValues = {
 export const LoginForm: React.FC = () => {
   const dispatch = useDispatch();
 
-  const onSubmit = (values: ILoginFormValues) => {
+  const onSubmit = (values: LoginFormValues) => {
     dispatch(loginRequest(values));
   };
 

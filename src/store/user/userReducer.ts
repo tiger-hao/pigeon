@@ -1,8 +1,8 @@
 import { Reducer } from 'redux';
-import { UserActionTypes, IUserState, IUserAction } from './userTypes';
+import { UserActionTypes, UserState, UserAction } from './userTypes';
 import { AuthActionTypes } from 'store/auth/authTypes';
 
-const INITIAL_STATE: IUserState = {
+const INITIAL_STATE: UserState = {
   name: {
     first: '',
     last: ''
@@ -12,7 +12,7 @@ const INITIAL_STATE: IUserState = {
   error: ''
 };
 
-export const userReducer: Reducer<IUserState, IUserAction> = (state = INITIAL_STATE, action) => {
+export const userReducer: Reducer<UserState, UserAction> = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case UserActionTypes.GET_USER_REQUEST:
       return { ...state, loading: true };

@@ -1,9 +1,9 @@
 import { Action } from 'redux';
-import { IName } from 'types';
-import { IUserLoginInfo, IUserSignupInfo } from 'services/userService';
+import { Name } from 'types';
+import { UserLoginInfo, UserSignupInfo } from 'services/userService';
 
-export interface IAuthState {
-  name: IName;
+export interface AuthState {
+  name: Name;
   email: string;
   token: string;
   loading: boolean;
@@ -20,43 +20,43 @@ export enum AuthActionTypes {
   SIGNUP_FAILURE = "pigeon/auth/SIGNUP_FAILURE"
 }
 
-export interface ILoginRequestAction extends Action<AuthActionTypes.LOGIN_REQUEST> {
+export interface LoginRequestAction extends Action<AuthActionTypes.LOGIN_REQUEST> {
   payload: {
-    loginInfo: IUserLoginInfo;
+    loginInfo: UserLoginInfo;
   }
 }
 
-export interface ILoginSuccessAction extends Action<AuthActionTypes.LOGIN_SUCCESS> {
-  payload: {
-    token: string;
-  }
-}
-
-export interface ILoginFailureAction extends Action<AuthActionTypes.LOGIN_FAILURE> {
-  payload: {
-    error: string;
-  }
-}
-
-export type ILogoutAction = Action<AuthActionTypes.LOGOUT>;
-
-export interface ISignupRequestAction extends Action<AuthActionTypes.SIGNUP_REQUEST> {
-  payload: {
-    signupInfo: IUserSignupInfo;
-  }
-}
-
-export interface ISignupSuccessAction extends Action<AuthActionTypes.SIGNUP_SUCCESS> {
+export interface LoginSuccessAction extends Action<AuthActionTypes.LOGIN_SUCCESS> {
   payload: {
     token: string;
   }
 }
 
-export interface ISignupFailureAction extends Action<AuthActionTypes.SIGNUP_FAILURE> {
+export interface LoginFailureAction extends Action<AuthActionTypes.LOGIN_FAILURE> {
   payload: {
     error: string;
   }
 }
 
-export type IAuthAction = ILoginRequestAction | ILoginSuccessAction | ILoginFailureAction
-  | ILogoutAction | ISignupRequestAction | ISignupSuccessAction | ISignupFailureAction;
+export type LogoutAction = Action<AuthActionTypes.LOGOUT>;
+
+export interface SignupRequestAction extends Action<AuthActionTypes.SIGNUP_REQUEST> {
+  payload: {
+    signupInfo: UserSignupInfo;
+  }
+}
+
+export interface SignupSuccessAction extends Action<AuthActionTypes.SIGNUP_SUCCESS> {
+  payload: {
+    token: string;
+  }
+}
+
+export interface SignupFailureAction extends Action<AuthActionTypes.SIGNUP_FAILURE> {
+  payload: {
+    error: string;
+  }
+}
+
+export type AuthAction = LoginRequestAction | LoginSuccessAction | LoginFailureAction
+  | LogoutAction | SignupRequestAction | SignupSuccessAction | SignupFailureAction;

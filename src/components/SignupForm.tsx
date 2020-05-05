@@ -5,9 +5,9 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useDispatch } from 'react-redux';
 import { signupRequest } from 'store/auth/authActions';
-import { IUserSignupInfo } from 'services/userService';
+import { UserSignupInfo } from 'services/userService';
 
-interface ISignupFormValues {
+interface SignupFormValues {
   firstName: string;
   lastName: string;
   email: string;
@@ -15,7 +15,7 @@ interface ISignupFormValues {
   passwordConfirmation: string;
 }
 
-const schema = Yup.object<ISignupFormValues>({
+const schema = Yup.object<SignupFormValues>({
   firstName: Yup.string().required("Required"),
   lastName: Yup.string().required("Required"),
   email: Yup.string()
@@ -30,7 +30,7 @@ const schema = Yup.object<ISignupFormValues>({
     .required("Required")
 });
 
-const initialValues: ISignupFormValues = {
+const initialValues: SignupFormValues = {
   firstName: "",
   lastName: "",
   email: "",
@@ -41,8 +41,8 @@ const initialValues: ISignupFormValues = {
 export const SignupForm: React.FC = () => {
   const dispatch = useDispatch();
 
-  const onSubmit = (values: ISignupFormValues) => {
-    const signupInfo: IUserSignupInfo = {
+  const onSubmit = (values: SignupFormValues) => {
+    const signupInfo: UserSignupInfo = {
       name: {
         first: values.firstName,
         last: values.lastName
