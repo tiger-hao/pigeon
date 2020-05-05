@@ -1,47 +1,18 @@
-import {
-  UserActionTypes, ILogoutAction,
-  ILoginRequestAction, ILoginSuccessAction, ILoginFailureAction, ILoginSuccessPayload,
-  ISignupRequestAction, ISignupSuccessAction, ISignupFailureAction, ISignupSuccessPayload
-} from './userTypes';
-import { IUserLoginInfo, IUserSignupInfo } from 'services/userService';
+import { UserActionTypes, IUserInfo, IGetUserRequestAction, IGetUserSuccessAction, IGetUserFailureAction } from "./userTypes";
 
-export const loginRequest = (loginInfo: IUserLoginInfo): ILoginRequestAction => ({
-  type: UserActionTypes.LOGIN_REQUEST,
+export const getUserRequest = (): IGetUserRequestAction => ({
+  type: UserActionTypes.GET_USER_REQUEST,
+});
+
+export const getUserSuccess = (user: IUserInfo): IGetUserSuccessAction => ({
+  type: UserActionTypes.GET_USER_SUCCESS,
   payload: {
-    loginInfo
+    user
   }
 });
 
-export const loginSuccess = (payload: ILoginSuccessPayload): ILoginSuccessAction => ({
-  type: UserActionTypes.LOGIN_SUCCESS,
-  payload
-});
-
-export const loginFailure = (error: Error): ILoginFailureAction => ({
-  type: UserActionTypes.LOGIN_FAILURE,
-  payload: {
-    error
-  }
-});
-
-export const logout = (): ILogoutAction => ({
-  type: UserActionTypes.LOGOUT
-});
-
-export const signupRequest = (signupInfo: IUserSignupInfo): ISignupRequestAction => ({
-  type: UserActionTypes.SIGNUP_REQUEST,
-  payload: {
-    signupInfo
-  }
-});
-
-export const signupSuccess = (payload: ISignupSuccessPayload): ISignupSuccessAction => ({
-  type: UserActionTypes.SIGNUP_SUCCESS,
-  payload
-});
-
-export const signupFailure = (error: Error): ISignupFailureAction => ({
-  type: UserActionTypes.SIGNUP_FAILURE,
+export const getUserFailure = (error: string): IGetUserFailureAction => ({
+  type: UserActionTypes.GET_USER_FAILURE,
   payload: {
     error
   }

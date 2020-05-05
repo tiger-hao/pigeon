@@ -1,5 +1,6 @@
 import { Reducer } from 'redux';
 import { UserActionTypes, IUserState, IUserAction } from './userTypes';
+import { AuthActionTypes } from 'store/auth/authTypes';
 
 const INITIAL_STATE: IUserState = {
   name: {
@@ -7,19 +8,23 @@ const INITIAL_STATE: IUserState = {
     last: ''
   },
   email: '',
-  token: '',
-  error: null
+  loading: false,
+  error: ''
 };
 
 export const userReducer: Reducer<IUserState, IUserAction> = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case UserActionTypes.LOGOUT:
+    case UserActionTypes.GET_USER_REQUEST:
+      return { ...state, loading: true };
+    case UserActionTypes.GET_USER_SUCCESS:
+    case UserActionTypes.GET_USER_FAILURE:
+      return {
+        ...state,
+        ...action.payload,
+        loading: false
+      };
+    case AuthActionTypes.LOGOUT:
       return INITIAL_STATE;
-    case UserActionTypes.LOGIN_SUCCESS:
-    case UserActionTypes.LOGIN_FAILURE:
-    case UserActionTypes.SIGNUP_SUCCESS:
-    case UserActionTypes.SIGNUP_FAILURE:
-      return { ...state, ...action.payload };
     default:
       return state;
   }

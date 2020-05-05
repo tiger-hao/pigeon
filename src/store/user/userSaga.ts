@@ -1,31 +1,26 @@
-import { takeLatest, call, put, all } from 'redux-saga/effects';
+import { takeLatest, call, put } from 'redux-saga/effects';
 import { AxiosResponse } from 'axios';
-import { UserActionTypes, ILoginRequestAction, ISignupRequestAction } from './userTypes';
-import { signupUser, IUserTokenResponse } from 'services/userService';
-import { signupSuccess, signupFailure } from './userActions';
+import { getUser, IGetUserResponse } from 'services/userService';
+import { UserActionTypes } from './userTypes';
+import { getUserSuccess, getUserFailure } from './userActions';
 
-function* loginSaga({ payload: { loginInfo } }: ILoginRequestAction) {
-}
-
-function* signupSaga({ payload: { signupInfo } }: ISignupRequestAction) {
+function* getUserSaga() {
   try {
-    const { data: { access_token, token_type } }: AxiosResponse<IUserTokenResponse> = yield call(signupUser, signupInfo);
-    const payload = {
-      name: signupInfo.name,
-      email: signupInfo.email,
-      token: `${token_type} ${access_token}`,
-    };
-    yield put(signupSuccess(payload));
+    const { data }: AxiosResponse<IGetUserResponse> = yield call(getUser);
+    yield put(getUserSuccess(data));
   } catch (err) {
+    let error: string = err.message || "Something went wrong.";
+
     // get the actual API response if there's an API error
-    const error = (err.response && err.response.data) || err;
-    yield put(signupFailure(error));
+    if (err.response && err.response.data) {
+      const response = err.response.data;
+      error = (response.data && JSON.stringify(response.data)) || response.message;
+    }
+
+    yield put(getUserFailure(error));
   }
 }
 
 export function* userSaga() {
-  yield all([
-    takeLatest(UserActionTypes.LOGIN_REQUEST, loginSaga),
-    takeLatest(UserActionTypes.SIGNUP_REQUEST, signupSaga)
-  ]);
+  yield takeLatest(UserActionTypes.GET_USER_REQUEST, getUserSaga);
 }

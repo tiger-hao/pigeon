@@ -1,68 +1,36 @@
 import { Action } from 'redux';
 import { IName } from 'types';
-import { IUserLoginInfo, IUserSignupInfo } from 'services/userService';
+import { ILogoutAction } from 'store/auth/authTypes';
 
-export interface IUserState {
+export interface IUserInfo {
   name: IName;
   email: string;
-  token: string;
-  error: any;
+}
+
+export interface IUserState extends IUserInfo {
+  loading: boolean;
+  error: string;
 }
 
 export enum UserActionTypes {
-  LOGIN_REQUEST = "pigeon/user/LOGIN_REQUEST",
-  LOGIN_SUCCESS = "pigeon/user/LOGIN_SUCCESS",
-  LOGIN_FAILURE = "pigeon/user/LOGIN_FAILURE",
-  LOGOUT = "pigeon/user/LOGOUT",
-  SIGNUP_REQUEST = "pigeon/user/SIGNUP_REQUEST",
-  SIGNUP_SUCCESS = "pigeon/user/SIGNUP_SUCCESS",
-  SIGNUP_FAILURE = "pigeon/user/SIGNUP_FAILURE"
+  GET_USER_REQUEST = "pigeon/user/GET_USER_REQUEST",
+  GET_USER_SUCCESS = "pigeon/user/GET_USER_SUCCESS",
+  GET_USER_FAILURE = "pigeon/user/GET_USER_FAILURE"
 }
 
-export interface ILoginSuccessPayload {
-  email: string;
-  token: string;
-}
+export type IGetUserRequestAction = Action<UserActionTypes.GET_USER_REQUEST>;
 
-export interface ISignupSuccessPayload {
-  name: IName;
-  email: string;
-  token: string;
-}
-
-export interface ILoginRequestAction extends Action<UserActionTypes.LOGIN_REQUEST> {
+export interface IGetUserSuccessAction extends Action<UserActionTypes.GET_USER_SUCCESS> {
   payload: {
-    loginInfo: IUserLoginInfo;
+    user: IUserInfo;
   }
 }
 
-export interface ILoginSuccessAction extends Action<UserActionTypes.LOGIN_SUCCESS> {
-  payload: ILoginSuccessPayload;
-}
-
-export interface ILoginFailureAction extends Action<UserActionTypes.LOGIN_FAILURE> {
+export interface IGetUserFailureAction extends Action<UserActionTypes.GET_USER_FAILURE> {
   payload: {
-    error: any;
+    error: string;
   }
 }
 
-export type ILogoutAction = Action<UserActionTypes.LOGOUT>;
-
-export interface ISignupRequestAction extends Action<UserActionTypes.SIGNUP_REQUEST> {
-  payload: {
-    signupInfo: IUserSignupInfo;
-  }
-}
-
-export interface ISignupSuccessAction extends Action<UserActionTypes.SIGNUP_SUCCESS> {
-  payload: ISignupSuccessPayload;
-}
-
-export interface ISignupFailureAction extends Action<UserActionTypes.SIGNUP_FAILURE> {
-  payload: {
-    error: any;
-  }
-}
-
-export type IUserAction = ILoginRequestAction | ILoginSuccessAction | ILoginFailureAction
-  | ILogoutAction | ISignupRequestAction | ISignupSuccessAction | ISignupFailureAction;
+export type IUserAction = IGetUserRequestAction | IGetUserSuccessAction | IGetUserFailureAction
+  | ILogoutAction;

@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { signupRequest } from 'store/user/userActions';
+import { signupRequest } from 'store/auth/authActions';
 import { IUserSignupInfo } from 'services/userService';
 
 interface ISignupFormValues {

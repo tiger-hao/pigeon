@@ -13,7 +13,7 @@ import { SignupPage } from 'pages/SignupPage';
 import { LoginPage } from 'pages/LoginPage';
 
 const App: React.FC = () => {
-  const user = useSelector((state: IRootState) => state.user);
+  const authState = useSelector((state: IRootState) => state.auth);
   const loggedIn = true;
 
   return (
@@ -28,7 +28,7 @@ const App: React.FC = () => {
           {loggedIn
             ?
             <div>
-              {JSON.stringify(user)}
+              {JSON.stringify(authState)}
             </div>
             :
             <Redirect to={Routes.LOGIN} />
