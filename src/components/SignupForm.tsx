@@ -3,7 +3,6 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { signupRequest } from 'store/auth/authActions';
 import { IUserSignupInfo } from 'services/userService';
@@ -31,8 +30,15 @@ const schema = Yup.object<ISignupFormValues>({
     .required("Required")
 });
 
+const initialValues: ISignupFormValues = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  passwordConfirmation: ""
+};
+
 export const SignupForm: React.FC = () => {
-  const history = useHistory();
   const dispatch = useDispatch();
 
   const onSubmit = (values: ISignupFormValues) => {
@@ -46,19 +52,12 @@ export const SignupForm: React.FC = () => {
     };
 
     dispatch(signupRequest(signupInfo));
-    history.push("/");
   };
 
   return (
     <Formik
       validationSchema={schema}
-      initialValues={{
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-        passwordConfirmation: ""
-      }}
+      initialValues={initialValues}
       onSubmit={onSubmit}
     >
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (

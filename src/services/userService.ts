@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { IName } from 'types';
+import { ApiResponse } from './ApiResponse';
 
 export interface IUserLoginInfo {
   email: string;
@@ -22,14 +23,32 @@ export interface IGetUserResponse {
   email: string;
 }
 
-export function loginUser(loginInfo: IUserLoginInfo): Promise<IUserTokenResponse> {
-  return axios.post(`${process.env.REACT_APP_API_BASE_URL}/auth/token`, loginInfo);
+export async function loginUser(loginInfo: IUserLoginInfo): Promise<IUserTokenResponse> {
+  const { data: { data } } = await axios.post<ApiResponse<IUserTokenResponse>>(`${process.env.REACT_APP_API_BASE_URL}/auth/token`, loginInfo);
+
+  if (!data) {
+    throw Error("Data expected but not received from API response");
+  }
+
+  return data;
 }
 
-export function signupUser(signupInfo: IUserSignupInfo): Promise<IUserTokenResponse> {
-  return axios.post(`${process.env.REACT_APP_API_BASE_URL}/users`, signupInfo);
+export async function signupUser(signupInfo: IUserSignupInfo): Promise<IUserTokenResponse> {
+  const { data: { data } } = await axios.post<ApiResponse<IUserTokenResponse>>(`${process.env.REACT_APP_API_BASE_URL}/users`, signupInfo);
+
+  if (!data) {
+    throw Error("Data expected but not received from API response");
+  }
+
+  return data;
 }
 
-export function getUser(): Promise<IGetUserResponse> {
-  return axios.get(`${process.env.REACT_APP_API_BASE_URL}/users/me`);
+export async function getUser(): Promise<IGetUserResponse> {
+  const { data: { data } } = await axios.get<ApiResponse<IGetUserResponse>>(`${process.env.REACT_APP_API_BASE_URL}/users/me`);
+
+  if (!data) {
+    throw Error("Data expected but not received from API response");
+  }
+
+  return data;
 }

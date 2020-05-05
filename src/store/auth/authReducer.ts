@@ -18,13 +18,19 @@ export const authReducer: Reducer<IAuthState, IAuthAction> = (state = INITIAL_ST
     case AuthActionTypes.SIGNUP_REQUEST:
       return { ...state, loading: true };
     case AuthActionTypes.LOGIN_SUCCESS:
-    case AuthActionTypes.LOGIN_FAILURE:
     case AuthActionTypes.SIGNUP_SUCCESS:
+      return {
+        ...state,
+        token: action.payload.token,
+        loading: false,
+        error: ''
+      };
+    case AuthActionTypes.LOGIN_FAILURE:
     case AuthActionTypes.SIGNUP_FAILURE:
       return {
         ...state,
-        ...action.payload,
-        loading: false
+        error: action.payload.error,
+        loading: false,
       };
     case AuthActionTypes.LOGOUT:
       return INITIAL_STATE;
