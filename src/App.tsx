@@ -1,21 +1,19 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Switch } from 'react-router-dom';
 
 import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { RootState } from 'store/rootReducer';
 import { Routes } from 'constants/routes';
 import { NavigationBar } from 'components/NavigationBar/NavigationBar';
+import { PrivateRoute } from 'components/Routes/PrivateRoute';
+import { GuestRoute } from 'components/Routes/GuestRoute';
 import { AuthPage } from 'pages/AuthPage';
 import { LoginForm } from 'components/LoginForm';
 import { SignupForm } from 'components/SignupForm';
 
 const App: React.FC = () => {
-  const loggedIn = !!useSelector((state: RootState) => state.auth.token);
-
   return (
     <div className="App">
       <header className="App-header">
@@ -24,27 +22,21 @@ const App: React.FC = () => {
       </header>
       <NavigationBar />
       <Switch>
-        <Route exact path={Routes.HOME}>
-          {loggedIn
-            ?
-            <div>
-              {`Logged in: ${loggedIn}`}
-            </div>
-            :
-            <Redirect to={Routes.LOGIN} />
-          }
+        <PrivateRoute exact path={Routes.HOME}>
+          <div>Logged in</div>
+        </PrivateRoute>
 
-        </Route>
-        <Route path={Routes.LOGIN}>
+        <GuestRoute path={Routes.LOGIN}>
           <AuthPage header="Sign in">
             <LoginForm />
           </AuthPage>
-        </Route>
-        <Route path={Routes.SIGNUP}>
+        </GuestRoute>
+
+        <GuestRoute path={Routes.SIGNUP}>
           <AuthPage header="Sign up">
             <SignupForm />
           </AuthPage>
-        </Route>
+        </GuestRoute>
       </Switch>
     </div>
   );
