@@ -3,20 +3,14 @@ import { AxiosResponse } from 'axios';
 import { getUser, IGetUserResponse } from 'services/userService';
 import { UserActionTypes } from './userTypes';
 import { getUserSuccess, getUserFailure } from './userActions';
+import { parseError } from 'utils/parseError';
 
 function* getUserSaga() {
   try {
     const { data }: AxiosResponse<IGetUserResponse> = yield call(getUser);
     yield put(getUserSuccess(data));
   } catch (err) {
-    let error: string = err.message || "Something went wrong.";
-
-    // get the actual API response if there's an API error
-    if (err.response && err.response.data) {
-      const response = err.response.data;
-      error = (response.data && JSON.stringify(response.data)) || response.message;
-    }
-
+    const error = parseError(err);
     yield put(getUserFailure(error));
   }
 }

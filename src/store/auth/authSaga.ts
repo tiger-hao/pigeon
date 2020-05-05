@@ -4,6 +4,7 @@ import { AuthActionTypes, ILoginRequestAction, ISignupRequestAction } from './au
 import { signupUser, IUserTokenResponse } from 'services/userService';
 import { signupSuccess, signupFailure } from './authActions';
 import { getUserSuccess } from 'store/user/userActions';
+import { parseError } from 'utils/parseError';
 
 function* loginSaga({ payload: { loginInfo } }: ILoginRequestAction) {
 }
@@ -14,14 +15,7 @@ function* signupSaga({ payload: { signupInfo } }: ISignupRequestAction) {
     yield put(signupSuccess(`${token_type} ${access_token}`));
     yield put(getUserSuccess(signupInfo));
   } catch (err) {
-    let error: string = err.message || "Something went wrong.";
-
-    // get the actual API response if there's an API error
-    if (err.response && err.response.data) {
-      const response = err.response.data;
-      error = (response.data && JSON.stringify(response.data)) || response.message;
-    }
-
+    const error = parseError(err);
     yield put(signupFailure(error));
   }
 }
