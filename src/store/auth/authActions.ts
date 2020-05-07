@@ -30,11 +30,10 @@ export const logout = (): LogoutAction => ({
   type: AuthActionTypes.LOGOUT
 });
 
-export const signupRequest = (signupInfo: UserSignupInfo, setFormikErrors: Function): SignupRequestAction => ({
+export const signupRequest = (signupInfo: UserSignupInfo): SignupRequestAction => ({
   type: AuthActionTypes.SIGNUP_REQUEST,
   payload: {
-    signupInfo,
-    setFormikErrors
+    signupInfo
   }
 });
 

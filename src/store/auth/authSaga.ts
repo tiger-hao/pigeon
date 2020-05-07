@@ -19,16 +19,12 @@ function* loginSaga({ payload: { loginInfo, setFormikErrors } }: LoginRequestAct
   }
 }
 
-function* signupSaga({ payload: { signupInfo, setFormikErrors } }: SignupRequestAction) {
+function* signupSaga({ payload: { signupInfo } }: SignupRequestAction) {
   try {
     const { access_token, token_type }: UserTokenResponse = yield call(signupUser, signupInfo);
     yield put(signupSuccess(`${token_type} ${access_token}`));
     yield put(getUserSuccess(signupInfo));
   } catch (err) {
-    if (err.response && err.response.data && err.response.data.data) {
-      setFormikErrors(err.response.data.data);
-    }
-
     const error = parseError(err);
     yield put(signupFailure(error));
   }
