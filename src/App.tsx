@@ -3,15 +3,13 @@ import { Switch } from 'react-router-dom';
 
 import logo from './logo.svg';
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { Routes } from 'constants/routes';
 import { NavigationBar } from 'components/NavigationBar/NavigationBar';
 import { PrivateRoute } from 'components/Routes/PrivateRoute';
 import { GuestRoute } from 'components/Routes/GuestRoute';
-import { AuthPage } from 'pages/AuthPage';
-import { LoginForm } from 'components/LoginForm';
-import { SignupForm } from 'components/SignupForm';
+import { LoginPage } from 'pages/LoginPage';
+import { SignupPage } from 'pages/SignupPage';
 
 const App: React.FC = () => {
   return (
@@ -27,15 +25,11 @@ const App: React.FC = () => {
         </PrivateRoute>
 
         <GuestRoute path={Routes.LOGIN}>
-          <AuthPage header="Sign in">
-            <LoginForm />
-          </AuthPage>
+          <LoginPage />
         </GuestRoute>
 
         <GuestRoute path={Routes.SIGNUP}>
-          <AuthPage header="Sign up">
-            <SignupForm />
-          </AuthPage>
+          <SignupPage />
         </GuestRoute>
       </Switch>
     </div>

@@ -1,5 +1,5 @@
-import { AxiosError } from "axios";
-import { ApiResponse } from "./ApiResponse";
+import { AxiosError } from 'axios';
+import { ApiResponse } from './ApiResponse';
 
 type ErrorResponse = ApiResponse<{ [key: string]: string }>;
 
