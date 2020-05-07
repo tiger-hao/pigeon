@@ -37,6 +37,8 @@ const fields: FormField<LoginFormValues>[] = [
 
 export const LoginPage: React.FC = () => {
   const loading = useSelector((state: RootState) => state.auth.loading);
+  const error = useSelector((state: RootState) => state.auth.error);
+
   const dispatch = useDispatch();
   const onSubmit = (values: LoginFormValues) => {
     dispatch(loginRequest(values));
@@ -54,6 +56,7 @@ export const LoginPage: React.FC = () => {
       )}
       onSubmit={onSubmit}
       loading={loading}
+      error={error}
     />
   );
 };

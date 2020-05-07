@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import { ObjectSchema } from 'yup';
 
 export interface FormField<T extends object> {
@@ -23,6 +24,7 @@ export interface AuthFormProps<T extends object> {
   redirectElement: React.ReactNode;
   onSubmit: (values: T) => void;
   loading: boolean;
+  error: string;
 }
 
 export class AuthForm<T extends object> extends React.Component<AuthFormProps<T>> {
@@ -33,7 +35,8 @@ export class AuthForm<T extends object> extends React.Component<AuthFormProps<T>
       validationSchema,
       redirectElement,
       onSubmit,
-      loading
+      loading,
+      error
     } = this.props;
 
     const initialValues: T = fields.reduce((acc: T, field: FormField<T>) => {
@@ -76,6 +79,12 @@ export class AuthForm<T extends object> extends React.Component<AuthFormProps<T>
                       );
                     })
                   }
+
+                  <Grid item xs={12}>
+                    <FormHelperText error>
+                      {error}
+                    </FormHelperText>
+                  </Grid>
 
                   <Grid item>
                     {redirectElement}

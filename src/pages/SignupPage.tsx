@@ -67,6 +67,8 @@ const fields: FormField<SignupFormValues>[] = [
 
 export const SignupPage: React.FC = () => {
   const loading = useSelector((state: RootState) => state.auth.loading);
+  const error = useSelector((state: RootState) => state.auth.error);
+
   const dispatch = useDispatch();
   const onSubmit = (values: SignupFormValues) => {
     const signupInfo: UserSignupInfo = {
@@ -93,6 +95,7 @@ export const SignupPage: React.FC = () => {
       )}
       onSubmit={onSubmit}
       loading={loading}
+      error={error}
     />
   );
 };
