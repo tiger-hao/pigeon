@@ -23,6 +23,7 @@ export enum AuthActionTypes {
 export interface LoginRequestAction extends Action<AuthActionTypes.LOGIN_REQUEST> {
   payload: {
     loginInfo: UserLoginInfo;
+    setFormikErrors: Function;
   }
 }
 
@@ -43,6 +44,7 @@ export type LogoutAction = Action<AuthActionTypes.LOGOUT>;
 export interface SignupRequestAction extends Action<AuthActionTypes.SIGNUP_REQUEST> {
   payload: {
     signupInfo: UserSignupInfo;
+    setFormikErrors: Function;
   }
 }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import * as Yup from 'yup';
+import { FormikHelpers } from 'formik';
 import { AuthForm, FormField } from 'components/AuthForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginRequest } from 'store/auth/authActions';
@@ -40,8 +41,8 @@ export const LoginPage: React.FC = () => {
   const error = useSelector((state: RootState) => state.auth.error);
 
   const dispatch = useDispatch();
-  const onSubmit = (values: LoginFormValues) => {
-    dispatch(loginRequest(values));
+  const onSubmit = (values: LoginFormValues, { setErrors }: FormikHelpers<LoginFormValues>) => {
+    dispatch(loginRequest(values, setErrors));
   };
 
   return (

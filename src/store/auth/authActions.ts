@@ -4,10 +4,11 @@ import {
 } from './authTypes';
 import { UserLoginInfo, UserSignupInfo } from 'services/userService';
 
-export const loginRequest = (loginInfo: UserLoginInfo): LoginRequestAction => ({
+export const loginRequest = (loginInfo: UserLoginInfo, setFormikErrors: Function): LoginRequestAction => ({
   type: AuthActionTypes.LOGIN_REQUEST,
   payload: {
-    loginInfo
+    loginInfo,
+    setFormikErrors
   }
 });
 
@@ -29,10 +30,11 @@ export const logout = (): LogoutAction => ({
   type: AuthActionTypes.LOGOUT
 });
 
-export const signupRequest = (signupInfo: UserSignupInfo): SignupRequestAction => ({
+export const signupRequest = (signupInfo: UserSignupInfo, setFormikErrors: Function): SignupRequestAction => ({
   type: AuthActionTypes.SIGNUP_REQUEST,
   payload: {
-    signupInfo
+    signupInfo,
+    setFormikErrors
   }
 });
 

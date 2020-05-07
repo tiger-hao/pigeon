@@ -1,5 +1,5 @@
 import React from 'react';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, FormikHelpers } from 'formik';
 import { TextField } from 'formik-material-ui';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -22,7 +22,7 @@ export interface AuthFormProps<T extends object> {
   fields: FormField<T>[];
   validationSchema: ObjectSchema<T>
   redirectElement: React.ReactNode;
-  onSubmit: (values: T) => void;
+  onSubmit: (values: T, formikHelpers: FormikHelpers<T>) => void;
   loading: boolean;
   error: string;
 }
@@ -35,8 +35,7 @@ export class AuthForm<T extends object> extends React.Component<AuthFormProps<T>
       validationSchema,
       redirectElement,
       onSubmit,
-      loading,
-      error
+      loading
     } = this.props;
 
     const initialValues: T = fields.reduce((acc: T, field: FormField<T>) => {
@@ -79,12 +78,6 @@ export class AuthForm<T extends object> extends React.Component<AuthFormProps<T>
                       );
                     })
                   }
-
-                  <Grid item xs={12}>
-                    <FormHelperText error>
-                      {error}
-                    </FormHelperText>
-                  </Grid>
 
                   <Grid item>
                     {redirectElement}

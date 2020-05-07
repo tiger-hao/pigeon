@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import * as Yup from 'yup';
+import { FormikHelpers } from 'formik';
 import { AuthForm, FormField } from 'components/AuthForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { signupRequest } from 'store/auth/authActions';
@@ -70,7 +71,7 @@ export const SignupPage: React.FC = () => {
   const error = useSelector((state: RootState) => state.auth.error);
 
   const dispatch = useDispatch();
-  const onSubmit = (values: SignupFormValues) => {
+  const onSubmit = (values: SignupFormValues, { setErrors }: FormikHelpers<SignupFormValues>) => {
     const signupInfo: UserSignupInfo = {
       name: {
         first: values.firstName,
@@ -80,7 +81,7 @@ export const SignupPage: React.FC = () => {
       password: values.password
     };
 
-    dispatch(signupRequest(signupInfo));
+    dispatch(signupRequest(signupInfo, setErrors));
   };
 
   return (
