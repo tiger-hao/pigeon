@@ -5,6 +5,7 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { ObjectSchema } from 'yup';
 
 export interface FormField<T extends object> {
@@ -21,6 +22,7 @@ export interface AuthFormProps<T extends object> {
   validationSchema: ObjectSchema<T>
   redirectElement: React.ReactNode;
   onSubmit: (values: T) => void;
+  loading: boolean;
 }
 
 export class AuthForm<T extends object> extends React.Component<AuthFormProps<T>> {
@@ -30,7 +32,8 @@ export class AuthForm<T extends object> extends React.Component<AuthFormProps<T>
       fields,
       validationSchema,
       redirectElement,
-      onSubmit
+      onSubmit,
+      loading
     } = this.props;
 
     const initialValues: T = fields.reduce((acc: T, field: FormField<T>) => {
@@ -66,7 +69,7 @@ export class AuthForm<T extends object> extends React.Component<AuthFormProps<T>
 
                       return (
                         <Grid item xs={12}>
-                          <Field component={TextField} variant="outlined" margin="normal" fullWidth
+                          <Field component={TextField} variant="outlined" margin="normal" disabled={loading} fullWidth
                             name={name} type={type} label={label} autoComplete={autoComplete}
                           />
                         </Grid>
@@ -78,9 +81,14 @@ export class AuthForm<T extends object> extends React.Component<AuthFormProps<T>
                     {redirectElement}
                   </Grid>
 
-                  <Grid item>
-                    <Button type="submit" variant="contained" color="primary">
-                      {title}
+                  <Grid item xs={3}>
+                    <Button type="submit" variant="contained" color="primary" fullWidth>
+                      {loading
+                        ?
+                        <CircularProgress size={24} color="inherit" />
+                        :
+                        title
+                      }
                     </Button>
                   </Grid>
                 </Grid>

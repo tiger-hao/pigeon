@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import * as Yup from 'yup';
 import { AuthForm, FormField } from 'components/AuthForm';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signupRequest } from 'store/auth/authActions';
 import { UserSignupInfo } from 'services/userService';
 import { Routes } from 'constants/routes';
+import { RootState } from 'store/rootReducer';
 
 interface SignupFormValues {
   firstName: string;
@@ -65,6 +66,7 @@ const fields: FormField<SignupFormValues>[] = [
 ];
 
 export const SignupPage: React.FC = () => {
+  const loading = useSelector((state: RootState) => state.auth.loading);
   const dispatch = useDispatch();
   const onSubmit = (values: SignupFormValues) => {
     const signupInfo: UserSignupInfo = {
@@ -90,6 +92,7 @@ export const SignupPage: React.FC = () => {
         </Button>
       )}
       onSubmit={onSubmit}
+      loading={loading}
     />
   );
 };

@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import * as Yup from 'yup';
 import { AuthForm, FormField } from 'components/AuthForm';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginRequest } from 'store/auth/authActions';
 import { Routes } from 'constants/routes';
+import { RootState } from 'store/rootReducer';
 
 interface LoginFormValues {
   email: string;
@@ -35,6 +36,7 @@ const fields: FormField<LoginFormValues>[] = [
 ];
 
 export const LoginPage: React.FC = () => {
+  const loading = useSelector((state: RootState) => state.auth.loading);
   const dispatch = useDispatch();
   const onSubmit = (values: LoginFormValues) => {
     dispatch(loginRequest(values));
@@ -51,6 +53,7 @@ export const LoginPage: React.FC = () => {
         </Button>
       )}
       onSubmit={onSubmit}
+      loading={loading}
     />
   );
 };
