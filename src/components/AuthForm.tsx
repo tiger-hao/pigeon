@@ -7,11 +7,11 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { ObjectSchema } from 'yup';
 
-export interface FormField<T> {
+export interface FormField<T extends object> {
   name: keyof T;
   type: string;
   label: string;
-  initialValue: any;
+  initialValue: T[keyof T];
   autoComplete?: string;
 }
 
@@ -33,7 +33,7 @@ export class AuthForm<T extends object> extends React.Component<AuthFormProps<T>
       onSubmit
     } = this.props;
 
-    const initialValues: T = fields.reduce((acc, field) => {
+    const initialValues: T = fields.reduce((acc: T, field: FormField<T>) => {
       acc[field.name] = field.initialValue;
       return acc;
     }, {} as T);
