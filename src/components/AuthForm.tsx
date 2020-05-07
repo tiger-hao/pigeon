@@ -1,11 +1,12 @@
 import React from 'react';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, FormikHelpers } from 'formik';
 import { TextField } from 'formik-material-ui';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import { ObjectSchema } from 'yup';
 
 export interface FormField<T extends object> {
@@ -21,8 +22,9 @@ export interface AuthFormProps<T extends object> {
   fields: FormField<T>[];
   validationSchema: ObjectSchema<T>
   redirectElement: React.ReactNode;
-  onSubmit: (values: T) => void;
+  onSubmit: (values: T, formikHelpers: FormikHelpers<T>) => void;
   loading: boolean;
+  error: string;
 }
 
 export class AuthForm<T extends object> extends React.Component<AuthFormProps<T>> {
