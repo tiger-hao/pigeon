@@ -69,7 +69,7 @@ export class AuthForm<T extends object> extends React.Component<AuthFormProps<T>
                       } = field;
 
                       return (
-                        <Grid item xs={12}>
+                        <Grid item xs={12} key={`${name}`}>
                           <Field component={TextField} variant="outlined" margin="normal" disabled={loading} fullWidth
                             name={name} type={type} label={label} autoComplete={autoComplete}
                           />

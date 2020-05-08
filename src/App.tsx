@@ -10,6 +10,7 @@ import { PrivateRoute } from 'components/Routes/PrivateRoute';
 import { GuestRoute } from 'components/Routes/GuestRoute';
 import { LoginPage } from 'pages/LoginPage';
 import { SignupPage } from 'pages/SignupPage';
+import { MessagesPage } from 'pages/MessagesPage';
 
 const App: React.FC = () => {
   return (
@@ -21,7 +22,7 @@ const App: React.FC = () => {
       <NavigationBar />
       <Switch>
         <PrivateRoute exact path={Routes.HOME}>
-          <div>Logged in</div>
+          <MessagesPage />
         </PrivateRoute>
 
         <GuestRoute path={Routes.LOGIN}>
