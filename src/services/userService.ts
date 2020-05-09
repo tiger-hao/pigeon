@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { dataRequestor } from './dataRequestor';
 import { Name } from 'types';
 import { ApiResponse } from './ApiResponse';
 
@@ -24,7 +24,7 @@ export interface GetUserResponse {
 }
 
 export async function loginUser(loginInfo: UserLoginInfo): Promise<UserTokenResponse> {
-  const { data: { data } } = await axios.post<ApiResponse<UserTokenResponse>>(`${process.env.REACT_APP_API_BASE_URL}/auth/token`, loginInfo);
+  const { data: { data } } = await dataRequestor.post<ApiResponse<UserTokenResponse>>('/auth/token', loginInfo);
 
   if (!data) {
     throw Error("Data expected but not received from API response");
@@ -34,7 +34,7 @@ export async function loginUser(loginInfo: UserLoginInfo): Promise<UserTokenResp
 }
 
 export async function signupUser(signupInfo: UserSignupInfo): Promise<UserTokenResponse> {
-  const { data: { data } } = await axios.post<ApiResponse<UserTokenResponse>>(`${process.env.REACT_APP_API_BASE_URL}/users`, signupInfo);
+  const { data: { data } } = await dataRequestor.post<ApiResponse<UserTokenResponse>>('/users', signupInfo);
 
   if (!data) {
     throw Error("Data expected but not received from API response");
@@ -44,7 +44,7 @@ export async function signupUser(signupInfo: UserSignupInfo): Promise<UserTokenR
 }
 
 export async function getUser(): Promise<GetUserResponse> {
-  const { data: { data } } = await axios.get<ApiResponse<GetUserResponse>>(`${process.env.REACT_APP_API_BASE_URL}/users/me`);
+  const { data: { data } } = await dataRequestor.get<ApiResponse<GetUserResponse>>('/users/me');
 
   if (!data) {
     throw Error("Data expected but not received from API response");
