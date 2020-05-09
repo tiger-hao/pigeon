@@ -3,7 +3,6 @@ import { Switch } from 'react-router-dom';
 
 import logo from './logo.svg';
 import './App.css';
-
 import { Routes } from 'constants/routes';
 import { NavigationBar } from 'components/NavigationBar/NavigationBar';
 import { PrivateRoute } from 'components/Routes/PrivateRoute';
