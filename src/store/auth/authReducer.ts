@@ -2,11 +2,6 @@ import { Reducer } from 'redux';
 import { AuthActionTypes, AuthState, AuthAction } from './authTypes';
 
 const INITIAL_STATE: AuthState = {
-  name: {
-    first: '',
-    last: ''
-  },
-  email: '',
   token: '',
   loading: false,
   error: ''

@@ -1,10 +1,7 @@
 import { Action } from 'redux';
-import { Name } from 'types';
 import { UserLoginInfo, UserSignupInfo } from 'services/userService';
 
 export interface AuthState {
-  name: Name;
-  email: string;
   token: string;
   loading: boolean;
   error: string;
