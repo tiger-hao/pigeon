@@ -19,8 +19,11 @@ export interface UserTokenResponse {
 }
 
 export interface GetUserResponse {
-  name: Name;
-  email: string;
+  user: {
+    id: string;
+    name: Name;
+    email: string;
+  }
 }
 
 export async function loginUser(loginInfo: UserLoginInfo): Promise<UserTokenResponse> {

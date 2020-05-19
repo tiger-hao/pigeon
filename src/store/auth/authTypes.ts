@@ -3,6 +3,7 @@ import { UserLoginInfo, UserSignupInfo } from 'services/userService';
 
 export interface AuthState {
   token: string;
+  userId: string;
   loading: boolean;
   error: string;
 }
@@ -24,6 +25,7 @@ export interface LoginRequestAction extends Action<AuthActionTypes.LOGIN_REQUEST
 
 export interface LoginSuccessAction extends Action<AuthActionTypes.LOGIN_SUCCESS> {
   token: string;
+  userId: string;
 }
 
 export interface LoginFailureAction extends Action<AuthActionTypes.LOGIN_FAILURE> {
@@ -38,6 +40,7 @@ export interface SignupRequestAction extends Action<AuthActionTypes.SIGNUP_REQUE
 
 export interface SignupSuccessAction extends Action<AuthActionTypes.SIGNUP_SUCCESS> {
   token: string;
+  userId: string;
 }
 
 export interface SignupFailureAction extends Action<AuthActionTypes.SIGNUP_FAILURE> {

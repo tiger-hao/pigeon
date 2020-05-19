@@ -6,7 +6,7 @@ import { parseError } from 'services/parseError';
 
 function* getUserSaga() {
   try {
-    const user: GetUserResponse = yield call(getUser);
+    const { user }: GetUserResponse = yield call(getUser);
     yield put(getUserSuccess(user));
   } catch (err) {
     const error = parseError(err);

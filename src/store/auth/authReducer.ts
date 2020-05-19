@@ -3,6 +3,7 @@ import { AuthActionTypes, AuthState, AuthAction } from './authTypes';
 
 const INITIAL_STATE: AuthState = {
   token: '',
+  userId: '',
   loading: false,
   error: ''
 };
@@ -14,9 +15,11 @@ export const authReducer: Reducer<AuthState, AuthAction> = (state = INITIAL_STAT
       return { ...state, loading: true };
     case AuthActionTypes.LOGIN_SUCCESS:
     case AuthActionTypes.SIGNUP_SUCCESS:
+      const { token, userId } = action;
       return {
         ...state,
-        token: action.token,
+        token,
+        userId,
         loading: false,
         error: ''
       };

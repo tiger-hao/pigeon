@@ -10,9 +10,10 @@ export const loginRequest = (loginInfo: UserLoginInfo, setFormikErrors: Function
   setFormikErrors
 });
 
-export const loginSuccess = (token: string): LoginSuccessAction => ({
+export const loginSuccess = (token: string, userId: string): LoginSuccessAction => ({
   type: AuthActionTypes.LOGIN_SUCCESS,
-  token
+  token,
+  userId
 });
 
 export const loginFailure = (error: string): LoginFailureAction => ({
@@ -29,9 +30,10 @@ export const signupRequest = (signupInfo: UserSignupInfo): SignupRequestAction =
   signupInfo
 });
 
-export const signupSuccess = (token: string): SignupSuccessAction => ({
+export const signupSuccess = (token: string, userId: string): SignupSuccessAction => ({
   type: AuthActionTypes.SIGNUP_SUCCESS,
-  token
+  token,
+  userId
 });
 
 export const signupFailure = (error: string): SignupFailureAction => ({

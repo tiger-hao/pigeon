@@ -3,6 +3,7 @@ import { Name } from 'types';
 import { LogoutAction } from 'store/auth/authTypes';
 
 export interface UserInfo {
+  id: string;
   name: Name;
   email: string;
 }

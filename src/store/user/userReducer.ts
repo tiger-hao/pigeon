@@ -3,6 +3,7 @@ import { UserActionTypes, UserState, UserAction } from './userTypes';
 import { AuthActionTypes } from 'store/auth/authTypes';
 
 const INITIAL_STATE: UserState = {
+  id: '',
   name: {
     first: '',
     last: ''
