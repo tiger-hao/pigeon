@@ -19,14 +19,14 @@ export const userReducer: Reducer<UserState, UserAction> = (state = INITIAL_STAT
     case UserActionTypes.GET_USER_SUCCESS:
       return {
         ...state,
-        ...action.payload.user,
+        ...action.user,
         loading: false,
         error: ''
       };
     case UserActionTypes.GET_USER_FAILURE:
       return {
         ...state,
-        error: action.payload.error,
+        error: action.error,
         loading: false
       };
     case AuthActionTypes.LOGOUT:

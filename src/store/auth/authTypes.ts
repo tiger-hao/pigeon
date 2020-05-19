@@ -18,42 +18,30 @@ export enum AuthActionTypes {
 }
 
 export interface LoginRequestAction extends Action<AuthActionTypes.LOGIN_REQUEST> {
-  payload: {
-    loginInfo: UserLoginInfo;
-    setFormikErrors: Function;
-  }
+  loginInfo: UserLoginInfo;
+  setFormikErrors: Function;
 }
 
 export interface LoginSuccessAction extends Action<AuthActionTypes.LOGIN_SUCCESS> {
-  payload: {
-    token: string;
-  }
+  token: string;
 }
 
 export interface LoginFailureAction extends Action<AuthActionTypes.LOGIN_FAILURE> {
-  payload: {
-    error: string;
-  }
+  error: string;
 }
 
 export type LogoutAction = Action<AuthActionTypes.LOGOUT>;
 
 export interface SignupRequestAction extends Action<AuthActionTypes.SIGNUP_REQUEST> {
-  payload: {
-    signupInfo: UserSignupInfo;
-  }
+  signupInfo: UserSignupInfo;
 }
 
 export interface SignupSuccessAction extends Action<AuthActionTypes.SIGNUP_SUCCESS> {
-  payload: {
-    token: string;
-  }
+  token: string;
 }
 
 export interface SignupFailureAction extends Action<AuthActionTypes.SIGNUP_FAILURE> {
-  payload: {
-    error: string;
-  }
+  error: string;
 }
 
 export type AuthAction = LoginRequestAction | LoginSuccessAction | LoginFailureAction

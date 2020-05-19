@@ -6,24 +6,18 @@ import { UserLoginInfo, UserSignupInfo } from 'services/userService';
 
 export const loginRequest = (loginInfo: UserLoginInfo, setFormikErrors: Function): LoginRequestAction => ({
   type: AuthActionTypes.LOGIN_REQUEST,
-  payload: {
-    loginInfo,
-    setFormikErrors
-  }
+  loginInfo,
+  setFormikErrors
 });
 
 export const loginSuccess = (token: string): LoginSuccessAction => ({
   type: AuthActionTypes.LOGIN_SUCCESS,
-  payload: {
-    token
-  }
+  token
 });
 
 export const loginFailure = (error: string): LoginFailureAction => ({
   type: AuthActionTypes.LOGIN_FAILURE,
-  payload: {
-    error
-  }
+  error
 });
 
 export const logout = (): LogoutAction => ({
@@ -32,21 +26,15 @@ export const logout = (): LogoutAction => ({
 
 export const signupRequest = (signupInfo: UserSignupInfo): SignupRequestAction => ({
   type: AuthActionTypes.SIGNUP_REQUEST,
-  payload: {
-    signupInfo
-  }
+  signupInfo
 });
 
 export const signupSuccess = (token: string): SignupSuccessAction => ({
   type: AuthActionTypes.SIGNUP_SUCCESS,
-  payload: {
-    token
-  }
+  token
 });
 
 export const signupFailure = (error: string): SignupFailureAction => ({
   type: AuthActionTypes.SIGNUP_FAILURE,
-  payload: {
-    error
-  }
+  error
 });

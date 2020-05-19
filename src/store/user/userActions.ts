@@ -6,14 +6,10 @@ export const getUserRequest = (): GetUserRequestAction => ({
 
 export const getUserSuccess = (user: UserInfo): GetUserSuccessAction => ({
   type: UserActionTypes.GET_USER_SUCCESS,
-  payload: {
-    user
-  }
+  user
 });
 
 export const getUserFailure = (error: string): GetUserFailureAction => ({
   type: UserActionTypes.GET_USER_FAILURE,
-  payload: {
-    error
-  }
+  error
 });

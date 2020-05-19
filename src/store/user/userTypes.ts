@@ -21,15 +21,11 @@ export enum UserActionTypes {
 export type GetUserRequestAction = Action<UserActionTypes.GET_USER_REQUEST>;
 
 export interface GetUserSuccessAction extends Action<UserActionTypes.GET_USER_SUCCESS> {
-  payload: {
-    user: UserInfo;
-  }
+  user: UserInfo;
 }
 
 export interface GetUserFailureAction extends Action<UserActionTypes.GET_USER_FAILURE> {
-  payload: {
-    error: string;
-  }
+  error: string;
 }
 
 export type UserAction = GetUserRequestAction | GetUserSuccessAction | GetUserFailureAction

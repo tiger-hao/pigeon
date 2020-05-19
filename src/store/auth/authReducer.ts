@@ -16,7 +16,7 @@ export const authReducer: Reducer<AuthState, AuthAction> = (state = INITIAL_STAT
     case AuthActionTypes.SIGNUP_SUCCESS:
       return {
         ...state,
-        token: action.payload.token,
+        token: action.token,
         loading: false,
         error: ''
       };
@@ -24,7 +24,7 @@ export const authReducer: Reducer<AuthState, AuthAction> = (state = INITIAL_STAT
     case AuthActionTypes.SIGNUP_FAILURE:
       return {
         ...state,
-        error: action.payload.error,
+        error: action.error,
         loading: false,
       };
     case AuthActionTypes.LOGOUT:

@@ -5,7 +5,7 @@ import { loginSuccess, loginFailure, signupSuccess, signupFailure } from './auth
 import { getUserSuccess } from 'store/user/userActions';
 import { parseError } from 'services/parseError';
 
-function* loginSaga({ payload: { loginInfo, setFormikErrors } }: LoginRequestAction) {
+function* loginSaga({ loginInfo, setFormikErrors }: LoginRequestAction) {
   try {
     const { access_token, token_type }: UserTokenResponse = yield call(loginUser, loginInfo);
     yield put(loginSuccess(`${token_type} ${access_token}`));
@@ -19,7 +19,7 @@ function* loginSaga({ payload: { loginInfo, setFormikErrors } }: LoginRequestAct
   }
 }
 
-function* signupSaga({ payload: { signupInfo } }: SignupRequestAction) {
+function* signupSaga({ signupInfo }: SignupRequestAction) {
   try {
     const { access_token, token_type }: UserTokenResponse = yield call(signupUser, signupInfo);
     yield put(signupSuccess(`${token_type} ${access_token}`));
