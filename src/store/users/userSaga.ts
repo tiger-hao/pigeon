@@ -1,0 +1,27 @@
+import { takeLatest, call, put, all } from 'redux-saga/effects';
+import { getUsers, GetUsersResponse } from 'services/userService';
+import { UserActionTypes } from './userTypes';
+import { getUsersSuccess, getUsersFailure } from './userActions';
+import { parseError } from 'services/parseError';
+
+function* getUsersSaga() {
+  try {
+    const {
+      entities: {
+        users
+      },
+      result
+    }: GetUsersResponse = yield call(getUsers);
+
+    yield put(getUsersSuccess(users, result));
+  } catch (err) {
+    const error = parseError(err);
+    yield put(getUsersFailure(error));
+  }
+}
+
+export function* userSaga() {
+  yield all([
+    takeLatest(UserActionTypes.GET_USERS_REQUEST, getUsersSaga)
+  ]);
+}

@@ -3,7 +3,7 @@ import jwtDecode from 'jwt-decode';
 import { AuthActionTypes, LoginRequestAction, SignupRequestAction } from './authTypes';
 import { loginUser, signupUser, UserTokenResponse } from 'services/userService';
 import { loginSuccess, loginFailure, signupSuccess, signupFailure } from './authActions';
-import { getUserSuccess } from 'store/user/userActions';
+import { getProfileSuccess } from 'store/profile/profileActions';
 import { parseError } from 'services/parseError';
 
 function* loginSaga({ loginInfo, setFormikErrors }: LoginRequestAction) {
@@ -30,7 +30,7 @@ function* signupSaga({ signupInfo }: SignupRequestAction) {
     const { user } = jwtDecode(token);
 
     yield put(signupSuccess(token, user.id));
-    yield put(getUserSuccess({
+    yield put(getProfileSuccess({
       id: user.id,
       ...signupInfo
     }));
