@@ -1,8 +1,8 @@
 import { Reducer } from 'redux';
-import { UserActionTypes, UserState, UserAction } from './userTypes';
+import { ProfileActionTypes, ProfileState, ProfileAction } from './profileTypes';
 import { AuthActionTypes } from 'store/auth/authTypes';
 
-const INITIAL_STATE: UserState = {
+const INITIAL_STATE: ProfileState = {
   id: '',
   name: {
     first: '',
@@ -13,18 +13,18 @@ const INITIAL_STATE: UserState = {
   error: ''
 };
 
-export const userReducer: Reducer<UserState, UserAction> = (state = INITIAL_STATE, action) => {
+export const profileReducer: Reducer<ProfileState, ProfileAction> = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case UserActionTypes.GET_USER_REQUEST:
+    case ProfileActionTypes.GET_PROFILE_REQUEST:
       return { ...state, loading: true };
-    case UserActionTypes.GET_USER_SUCCESS:
+    case ProfileActionTypes.GET_PROFILE_SUCCESS:
       return {
         ...state,
-        ...action.user,
+        ...action.profile,
         loading: false,
         error: ''
       };
-    case UserActionTypes.GET_USER_FAILURE:
+    case ProfileActionTypes.GET_PROFILE_FAILURE:
       return {
         ...state,
         error: action.error,
