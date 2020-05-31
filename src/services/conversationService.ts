@@ -1,6 +1,9 @@
+import { normalize, NormalizedSchema } from 'normalizr';
 import { dataRequestor } from './dataRequestor';
 import { ApiResponse } from './ApiResponse';
-import { Message, User } from './messageService';
+import { Message } from './messageService';
+import { User } from './userService';
+import { conversationSchema, NormalizedConversations } from './schema';
 
 export interface Conversation {
   id: string;
@@ -18,9 +21,7 @@ export interface CreateConversationResponse {
   conversation: Conversation;
 }
 
-export interface GetConversationsResponse {
-  conversations: Conversation[]
-}
+export type GetConversationsResponse = NormalizedSchema<NormalizedConversations, string[]>;
 
 export async function createConversation(conversation: NewConversation): Promise<CreateConversationResponse> {
   const { data: { data } } = await dataRequestor.post<ApiResponse<CreateConversationResponse>>('/users/me/conversations/', conversation);
@@ -33,11 +34,11 @@ export async function createConversation(conversation: NewConversation): Promise
 }
 
 export async function getConversations(): Promise<GetConversationsResponse> {
-  const { data: { data } } = await dataRequestor.get<ApiResponse<GetConversationsResponse>>('/users/me/conversations');
+  const { data: { data } } = await dataRequestor.get<ApiResponse<{ conversations: Conversation[] }>>('/users/me/conversations');
 
   if (!data) {
     throw Error("Data expected but not received from API response");
   }
 
-  return data;
+  return normalize(data.conversations, [conversationSchema]);
 }
