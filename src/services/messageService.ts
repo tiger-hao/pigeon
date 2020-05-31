@@ -1,11 +1,8 @@
+import { normalize, NormalizedSchema } from 'normalizr';
 import { dataRequestor } from './dataRequestor';
-import { Name } from 'types';
 import { ApiResponse } from './ApiResponse';
-
-export interface User {
-  id: string;
-  name: Name;
-}
+import { User } from './userService';
+import { messageSchema, NormalizedMessages } from './schema';
 
 export interface Message {
   id: string;
@@ -18,9 +15,7 @@ export interface SendMessageResponse {
   message: Message;
 }
 
-export interface GetMessagesInConversationResponse {
-  messages: Message[];
-}
+export type GetMessagesResponse = NormalizedSchema<NormalizedMessages, string[]>;
 
 export async function sendMessage(message: string, conversationId: string): Promise<SendMessageResponse> {
   const { data: { data } } = await dataRequestor.post<ApiResponse<SendMessageResponse>>(
@@ -37,8 +32,8 @@ export async function sendMessage(message: string, conversationId: string): Prom
   return data;
 }
 
-export async function getMessagesInConversation(conversationId: string): Promise<GetMessagesInConversationResponse> {
-  const { data: { data } } = await dataRequestor.get<ApiResponse<GetMessagesInConversationResponse>>(
+export async function getMessages(conversationId: string): Promise<GetMessagesResponse> {
+  const { data: { data } } = await dataRequestor.get<ApiResponse<{ messages: Message[] }>>(
     `/users/me/conversations/${conversationId}/messages`
   );
 
@@ -46,5 +41,5 @@ export async function getMessagesInConversation(conversationId: string): Promise
     throw Error("Data expected but not received from API response");
   }
 
-  return data;
+  return normalize(data.messages, [messageSchema]);
 }
