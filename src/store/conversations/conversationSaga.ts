@@ -30,9 +30,9 @@ function* getConversationsSaga() {
       };
     });
 
-    yield put(getConversationsSuccess(conversationsById, result));
     yield put(addMessages(messages));
     yield put(addUsers(users));
+    yield put(getConversationsSuccess(conversationsById, result));
   } catch (err) {
     const error = parseError(err);
     yield put(getConversationsFailure(error));
