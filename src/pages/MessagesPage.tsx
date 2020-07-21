@@ -1,11 +1,13 @@
 import React from 'react';
+import List from '@material-ui/core/List';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from 'store/rootReducer';
 import { getConversationsRequest } from 'store/conversations/conversationActions';
+import { getAllConversationIds, getConversationsLoading } from 'store/conversations/conversationSelectors';
+import { Conversation } from 'components/Conversation';
 
 export const MessagesPage: React.FC = () => {
-  const conversations = useSelector((state: RootState) => state.conversations.byId);
-
+  const loading = useSelector(getConversationsLoading);
+  const conversationIds = useSelector(getAllConversationIds);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -16,25 +18,17 @@ export const MessagesPage: React.FC = () => {
     <>
       <h1>Conversations</h1>
       {
-        Object.keys(conversations).map((conversationId: string) => {
-          const { name, members, messages } = conversations[conversationId];
-          return (
-            <div style={{ marginBottom: 50 }}>
-              <p>
-                Id: {conversationId}
-              </p>
-              <p>
-                Name: {name}
-              </p>
-              <p>
-                Members: {members}
-              </p>
-              <p>
-                Messages: {messages}
-              </p>
-            </div>
-          );
-        })
+        !loading &&
+        <List>
+          {
+            conversationIds.map((conversationId: string) => (
+              <Conversation
+                key={conversationId}
+                id={conversationId}
+              />
+            ))
+          }
+        </List>
       }
     </>
   );
