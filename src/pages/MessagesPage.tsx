@@ -3,7 +3,7 @@ import List from '@material-ui/core/List';
 import { useDispatch, useSelector } from 'react-redux';
 import { getConversationsRequest } from 'store/conversations/conversationActions';
 import { getAllConversationIds, getConversationsLoading } from 'store/conversations/conversationSelectors';
-import { Conversation } from 'components/Conversation';
+import { ConversationPreview } from 'components/ConversationPreview';
 
 export const MessagesPage: React.FC = () => {
   const loading = useSelector(getConversationsLoading);
@@ -22,7 +22,7 @@ export const MessagesPage: React.FC = () => {
         <List>
           {
             conversationIds.map((conversationId: string) => (
-              <Conversation
+              <ConversationPreview
                 key={conversationId}
                 id={conversationId}
               />

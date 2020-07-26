@@ -7,11 +7,11 @@ import { getConversation } from 'store/conversations/conversationSelectors';
 import { getMessage } from 'store/messages/messageSelectors';
 import { getUserFullName } from 'store/users/userSelectors';
 
-export interface ConversationProps {
+export interface ConversationPreviewProps {
   id: string;
 }
 
-export const Conversation: React.FC<ConversationProps> = ({ id }) => {
+export const ConversationPreview: React.FC<ConversationPreviewProps> = ({ id }) => {
   const { name, messages } = useSelector((state: RootState) => getConversation(state, id));
   const lastMessageId = messages[messages.length - 1];
   const lastMessage = useSelector((state: RootState) => getMessage(state, lastMessageId));
