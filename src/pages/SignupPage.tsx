@@ -30,7 +30,7 @@ const schema = Yup.object<SignupFormValues>({
   passwordConfirmation: Yup.string()
     .oneOf([Yup.ref("password")], "Passwords must match")
     .required("Required")
-});
+}).defined();
 
 const fields: FormField<SignupFormValues>[] = [
   {

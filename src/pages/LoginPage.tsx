@@ -17,7 +17,7 @@ interface LoginFormValues {
 const schema = Yup.object<LoginFormValues>({
   email: Yup.string().email("Invalid email").required("Enter your email"),
   password: Yup.string().required("Enter your password")
-});
+}).defined();
 
 const fields: FormField<LoginFormValues>[] = [
   {
