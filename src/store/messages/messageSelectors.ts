@@ -3,6 +3,7 @@ import { RootState } from 'store/rootReducer';
 import { MessagesById } from './messageTypes';
 
 export const getMessagesById = (state: RootState) => state.messages.byId;
+export const getMessagesLoading = (state: RootState) => state.messages.loading;
 
 export const getMessage = createSelector(
   getMessagesById,
