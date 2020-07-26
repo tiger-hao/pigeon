@@ -15,8 +15,8 @@ function* getMessagesSaga({ conversationId }: GetMessagesRequestAction) {
       result
     }: GetMessagesResponse = yield call(getMessages, conversationId);
 
-    yield put(getMessagesSuccess(conversationId, messages, result));
     yield put(addUsers(users));
+    yield put(getMessagesSuccess(conversationId, messages, result));
   } catch (err) {
     const error = parseError(err);
     yield put(getMessagesFailure(error));
