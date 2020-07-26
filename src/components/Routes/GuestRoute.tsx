@@ -11,7 +11,7 @@ export const GuestRoute: React.FC<RouteProps> = ({ children, ...routeProps }) =>
     <Route {...routeProps}>
       {loggedIn
         ?
-        <Redirect to={Routes.HOME} />
+        <Redirect to={Routes.MESSAGES} />
         :
         children
       }

@@ -20,7 +20,7 @@ const App: React.FC = () => {
       </header>
       <NavigationBar />
       <Switch>
-        <PrivateRoute exact path={Routes.HOME}>
+        <PrivateRoute path={`${Routes.MESSAGES}/:conversationId?`}>
           <MessagesPage />
         </PrivateRoute>
 

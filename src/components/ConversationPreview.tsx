@@ -1,6 +1,8 @@
 import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import { Link } from 'react-router-dom';
+import { Routes } from 'constants/routes';
 import { useSelector } from 'react-redux';
 import { RootState } from 'store/rootReducer';
 import { getConversation } from 'store/conversations/conversationSelectors';
@@ -19,7 +21,7 @@ export const ConversationPreview: React.FC<ConversationPreviewProps> = ({ id }) 
   const sender = useSelector((state: RootState) => getUserFullName(state, senderId));
 
   return (
-    <ListItem button>
+    <ListItem button component={Link} to={`${Routes.MESSAGES}/${id}`}>
       <ListItemText
         primary={name}
         secondary={lastMessage ? `${sender}: ${lastMessage.text}` : ''}
