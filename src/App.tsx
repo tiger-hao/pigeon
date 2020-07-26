@@ -1,6 +1,6 @@
 import React from 'react';
-import { Switch } from 'react-router-dom';
-
+import Box from '@material-ui/core/Box';
+import { Switch, Redirect } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 import { Routes } from 'constants/routes';
@@ -13,13 +13,18 @@ import { MessagesPage } from 'pages/MessagesPage';
 
 const App: React.FC = () => {
   return (
-    <div className="App">
+    <Box display="flex" flexDirection="column" height="100vh">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <b>Pigeon</b>
       </header>
       <NavigationBar />
+
       <Switch>
+        <PrivateRoute exact path="/">
+          <Redirect to={`${Routes.MESSAGES}`} />
+        </PrivateRoute>
+
         <PrivateRoute path={`${Routes.MESSAGES}/:conversationId?`}>
           <MessagesPage />
         </PrivateRoute>
@@ -32,7 +37,7 @@ const App: React.FC = () => {
           <SignupPage />
         </GuestRoute>
       </Switch>
-    </div>
+    </Box>
   );
 };
 
