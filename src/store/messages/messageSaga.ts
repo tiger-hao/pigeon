@@ -1,7 +1,7 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects';
-import { getMessages, GetMessagesResponse } from 'services/messageService';
-import { MessageActionTypes, GetMessagesRequestAction } from './messageTypes';
-import { getMessagesSuccess, getMessagesFailure } from './messageActions';
+import { getMessages, GetMessagesResponse, sendMessage, SendMessageResponse } from 'services/messageService';
+import { MessageActionTypes, GetMessagesRequestAction, SendMessageAction } from './messageTypes';
+import { getMessagesSuccess, getMessagesFailure, addMessage } from './messageActions';
 import { parseError } from 'services/parseError';
 import { addUsers } from 'store/users/userActions';
 
@@ -12,11 +12,27 @@ function* getMessagesSaga({ conversationId }: GetMessagesRequestAction) {
         messages,
         users
       },
-      result
+      result: allMessageIds
     }: GetMessagesResponse = yield call(getMessages, conversationId);
 
     yield put(addUsers(users));
-    yield put(getMessagesSuccess(conversationId, messages, result));
+    yield put(getMessagesSuccess(conversationId, messages, allMessageIds));
+  } catch (err) {
+    const error = parseError(err);
+    yield put(getMessagesFailure(error));
+  }
+}
+
+function* sendMessageSaga({ message: messageText, conversationId }: SendMessageAction) {
+  try {
+    const {
+      entities: {
+        messages
+      },
+      result: messageId
+    }: SendMessageResponse = yield call(sendMessage, messageText, conversationId);
+
+    yield put(addMessage(messages[messageId], conversationId));
   } catch (err) {
     const error = parseError(err);
     yield put(getMessagesFailure(error));
@@ -25,6 +41,7 @@ function* getMessagesSaga({ conversationId }: GetMessagesRequestAction) {
 
 export function* messageSaga() {
   yield all([
-    takeLatest(MessageActionTypes.GET_MESSAGES_REQUEST, getMessagesSaga)
+    takeLatest(MessageActionTypes.GET_MESSAGES_REQUEST, getMessagesSaga),
+    takeLatest(MessageActionTypes.SEND_MESSAGE, sendMessageSaga)
   ]);
 }

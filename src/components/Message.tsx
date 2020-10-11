@@ -17,7 +17,7 @@ export const Message: React.FC<MessageProps> = ({ id }) => {
   return (
     <Box marginTop={2}>
       <Typography variant="caption">
-        {sender}
+        {`${sender} at ${createdAt.toLocaleString(undefined, { year: "numeric", month: "2-digit", day: "2-digit", hour: "numeric", minute: "2-digit" })}`}
       </Typography>
       <Typography>
         {text}

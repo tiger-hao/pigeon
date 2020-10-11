@@ -11,14 +11,11 @@ export interface Message {
   text: string;
 }
 
-export interface SendMessageResponse {
-  message: Message;
-}
-
+export type SendMessageResponse = NormalizedSchema<NormalizedMessages, string>;
 export type GetMessagesResponse = NormalizedSchema<NormalizedMessages, string[]>;
 
 export async function sendMessage(message: string, conversationId: string): Promise<SendMessageResponse> {
-  const { data: { data } } = await dataRequestor.post<ApiResponse<SendMessageResponse>>(
+  const { data: { data } } = await dataRequestor.post<ApiResponse<{ message: Message }>>(
     `/users/me/conversations/${conversationId}/messages`,
     {
       text: message
@@ -29,7 +26,7 @@ export async function sendMessage(message: string, conversationId: string): Prom
     throw Error("Data expected but not received from API response");
   }
 
-  return data;
+  return normalize(data.message, messageSchema);
 }
 
 export async function getMessages(conversationId: string): Promise<GetMessagesResponse> {

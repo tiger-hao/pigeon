@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Box from '@material-ui/core/Box';
 import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/ListSubheader';
@@ -16,7 +16,7 @@ export const MessagesPage: React.FC = () => {
   const conversationsById = useSelector(getConversationsById);
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(getConversationsRequest());
   }, [dispatch]);
 

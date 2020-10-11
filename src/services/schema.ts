@@ -6,7 +6,7 @@ import { User } from './userService';
 export interface NormalizedMessage {
   id: Message['id'];
   sender: string;
-  createdAt: Message['createdAt'];
+  createdAt: Date;
   text: Message['text'];
 }
 
@@ -40,9 +40,17 @@ export interface NormalizedConversations {
 
 export const userSchema = new schema.Entity<User>('users');
 
-export const messageSchema = new schema.Entity<Message>('messages', {
-  sender: userSchema
-});
+export const messageSchema = new schema.Entity<Message>('messages',
+  {
+    sender: userSchema
+  },
+  {
+    processStrategy: (entity) => ({
+      ...entity,
+      createdAt: new Date(entity.createdAt)
+    })
+  }
+);
 
 export const conversationSchema = new schema.Entity<Conversation>('conversations', {
   members: [userSchema],

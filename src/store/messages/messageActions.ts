@@ -1,6 +1,6 @@
 import {
   Message, MessagesById, MessageActionTypes, GetMessagesRequestAction, GetMessagesSuccessAction, GetMessagesFailureAction,
-  AddMessageAction, AddMessagesAction
+  AddMessageAction, AddMessagesAction, SendMessageAction
 } from './messageTypes';
 
 export const getMessagesRequest = (conversationId: string): GetMessagesRequestAction => ({
@@ -29,4 +29,10 @@ export const addMessage = (message: Message, conversationId: string): AddMessage
 export const addMessages = (messagesById: MessagesById): AddMessagesAction => ({
   type: MessageActionTypes.ADD_MESSAGES,
   messagesById
+});
+
+export const sendMessage = (message: string, conversationId: string): SendMessageAction => ({
+  type: MessageActionTypes.SEND_MESSAGE,
+  message,
+  conversationId
 });

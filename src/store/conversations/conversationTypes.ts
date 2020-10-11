@@ -1,5 +1,5 @@
 import { Action } from 'redux';
-import { GetMessagesSuccessAction, AddMessageAction } from 'store/messages/messageTypes';
+import { GetMessagesSuccessAction, AddMessageAction, SendMessageAction } from 'store/messages/messageTypes';
 
 export interface Conversation {
   id: string;
@@ -30,4 +30,4 @@ export interface GetConversationsFailureAction extends Action<ConversationAction
 }
 
 export type ConversationAction = GetConversationsRequestAction | GetConversationsSuccessAction
-  | GetConversationsFailureAction | GetMessagesSuccessAction | AddMessageAction;
+  | GetConversationsFailureAction | GetMessagesSuccessAction | AddMessageAction | SendMessageAction;

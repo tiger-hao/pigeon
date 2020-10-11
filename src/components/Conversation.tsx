@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
+import Input from '@material-ui/core/Input';
+import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
 import { Message } from 'components/Message';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMessagesRequest } from 'store/messages/messageActions';
+import { getMessagesRequest, sendMessage } from 'store/messages/messageActions';
 import { RootState } from 'store/rootReducer';
 import { getConversation } from 'store/conversations/conversationSelectors';
 import { getMessagesLoading } from 'store/messages/messageSelectors';
@@ -19,17 +22,28 @@ export const Conversation: React.FC<ConversationProps> = ({ id }) => {
   const loading = useSelector(getMessagesLoading);
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(getMessagesRequest(id));
   }, [dispatch, id]);
 
-  const messagesListRef = React.useRef<HTMLDivElement>(null);
+  const messagesListRef = useRef<HTMLDivElement>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (messagesListRef.current) {
       messagesListRef.current.scrollTop = messagesListRef.current.scrollHeight;
     }
   }, []);
+
+  const [message, setMessage] = useState("");
+
+  const onSendMessage = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (message) {
+      dispatch(sendMessage(message, id));
+      setMessage("");
+    }
+  };
 
   return (
     <Box flexGrow={1} display="flex" flexDirection="column" height="100%">
@@ -53,9 +67,22 @@ export const Conversation: React.FC<ConversationProps> = ({ id }) => {
         }
       </div>
 
-      <Box>
-        Type your message here.
-      </Box>
+      <form onSubmit={onSendMessage}>
+        <Box display="flex" padding={1}>
+          <Input style={{ flexGrow: 1 }} placeholder="Send a message" value={message}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)}
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            endIcon={<Icon>send</Icon>}
+            disabled={!message}
+          >
+            Send
+          </Button>
+        </Box>
+      </form>
     </Box>
   );
 };

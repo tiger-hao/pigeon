@@ -21,10 +21,6 @@ const App: React.FC = () => {
       <NavigationBar />
 
       <Switch>
-        <PrivateRoute exact path="/">
-          <Redirect to={`${Routes.MESSAGES}`} />
-        </PrivateRoute>
-
         <PrivateRoute path={`${Routes.MESSAGES}/:conversationId?`}>
           <MessagesPage />
         </PrivateRoute>
@@ -36,6 +32,10 @@ const App: React.FC = () => {
         <GuestRoute path={Routes.SIGNUP}>
           <SignupPage />
         </GuestRoute>
+
+        <PrivateRoute path="/">
+          <Redirect to={`${Routes.MESSAGES}`} />
+        </PrivateRoute>
       </Switch>
     </Box>
   );
