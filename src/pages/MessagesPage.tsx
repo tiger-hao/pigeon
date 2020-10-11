@@ -9,8 +9,12 @@ import { getAllConversationIds, getConversationsById, getConversationsLoading } 
 import { ConversationPreview } from 'components/ConversationPreview';
 import { Conversation } from 'components/Conversation';
 
+interface ParamTypes {
+  conversationId: string;
+}
+
 export const MessagesPage: React.FC = () => {
-  const { conversationId } = useParams();
+  const { conversationId } = useParams<ParamTypes>();
   const loading = useSelector(getConversationsLoading);
   const conversationIds = useSelector(getAllConversationIds);
   const conversationsById = useSelector(getConversationsById);

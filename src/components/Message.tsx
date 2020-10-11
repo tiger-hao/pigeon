@@ -11,11 +11,12 @@ export interface MessageProps {
 }
 
 export const Message: React.FC<MessageProps> = ({ id }) => {
+  const userId = useSelector((state: RootState) => state.auth.userId);
   const { sender: senderId, text, createdAt } = useSelector((state: RootState) => getMessage(state, id));
   const sender = useSelector((state: RootState) => getUserFullName(state, senderId));
 
   return (
-    <Box marginTop={2}>
+    <Box display="flex" flexDirection="column" alignItems={userId === senderId ? "flex-end" : "flex-start"} marginTop={2}>
       <Typography variant="caption">
         {`${sender} at ${createdAt.toLocaleString(undefined, { year: "numeric", month: "2-digit", day: "2-digit", hour: "numeric", minute: "2-digit" })}`}
       </Typography>
