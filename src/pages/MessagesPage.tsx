@@ -2,15 +2,16 @@ import React, { useEffect } from 'react';
 import Box from '@material-ui/core/Box';
 import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import { useParams } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getConversationsRequest } from 'store/conversations/conversationActions';
 import { getAllConversationIds, getConversationsById, getConversationsLoading } from 'store/conversations/conversationSelectors';
 import { ConversationPreview } from 'components/ConversationPreview';
 import { Conversation } from 'components/Conversation';
+import { Routes } from 'constants/routes';
 
 interface ParamTypes {
-  conversationId: string;
+  conversationId: string | undefined;
 }
 
 export const MessagesPage: React.FC = () => {
@@ -23,6 +24,10 @@ export const MessagesPage: React.FC = () => {
   useEffect(() => {
     dispatch(getConversationsRequest());
   }, [dispatch]);
+
+  if (!conversationId && conversationIds.length) {
+    return <Redirect to={`${Routes.MESSAGES}/${conversationIds[0]}`} />;
+  }
 
   return (
     <Box display="flex" height="100%" overflow="hidden">

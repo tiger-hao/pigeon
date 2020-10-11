@@ -44,7 +44,7 @@ export class AuthForm<T extends object> extends React.Component<AuthFormProps<T>
 
     return (
       <Container maxWidth="xs">
-        <Grid container>
+        <Grid container style={{ paddingTop: "1rem" }}>
           <Grid item>
             <Typography component="h1" variant="h4">
               {title}

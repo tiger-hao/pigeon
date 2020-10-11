@@ -1,24 +1,34 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import { Switch, Redirect } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 import { Routes } from 'constants/routes';
-import { NavigationBar } from 'components/NavigationBar/NavigationBar';
 import { PrivateRoute } from 'components/Routes/PrivateRoute';
 import { GuestRoute } from 'components/Routes/GuestRoute';
 import { LoginPage } from 'pages/LoginPage';
 import { SignupPage } from 'pages/SignupPage';
 import { MessagesPage } from 'pages/MessagesPage';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from 'store/auth/authActions';
+import { RootState } from 'store/rootReducer';
 
 const App: React.FC = () => {
+  const loggedIn = !!useSelector((state: RootState) => state.auth.token);
+  const dispatch = useDispatch();
+
   return (
     <Box display="flex" flexDirection="column" height="100vh">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <b>Pigeon</b>
+        {loggedIn &&
+          <Button color="inherit" style={{ marginLeft: "auto" }} onClick={() => dispatch(logout())}>
+            Log out
+          </Button>
+        }
       </header>
-      <NavigationBar />
 
       <Switch>
         <PrivateRoute path={`${Routes.MESSAGES}/:conversationId?`}>

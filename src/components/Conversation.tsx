@@ -47,7 +47,7 @@ export const Conversation: React.FC<ConversationProps> = ({ id }) => {
 
   return (
     <Box flexGrow={1} display="flex" flexDirection="column" height="100%" paddingX={2}>
-      <Typography variant="h5">
+      <Typography variant="h5" style={{ paddingTop: "0.75rem" }}>
         {name}
       </Typography>
 

@@ -89,7 +89,7 @@ export const SignupPage: React.FC = () => {
       fields={fields}
       validationSchema={schema}
       redirectElement={(
-        <Button component={Link} to={Routes.SIGNUP} color="primary">
+        <Button component={Link} to={Routes.LOGIN} color="primary">
           Sign in instead
         </Button>
       )}
