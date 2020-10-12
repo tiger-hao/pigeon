@@ -32,7 +32,7 @@ export const Conversation: React.FC<ConversationProps> = ({ id }) => {
     if (messagesListRef.current) {
       messagesListRef.current.scrollTop = messagesListRef.current.scrollHeight;
     }
-  }, []);
+  }, [messages]);
 
   const [message, setMessage] = useState("");
 
@@ -47,15 +47,17 @@ export const Conversation: React.FC<ConversationProps> = ({ id }) => {
 
   return (
     <Box flexGrow={1} display="flex" flexDirection="column" height="100%" paddingX={2}>
-      <Typography variant="h5" style={{ paddingTop: "0.75rem" }}>
-        {name}
-      </Typography>
+      <Box paddingY={2}>
+        <Typography variant="h5">
+          {name}
+        </Typography>
 
-      <Typography variant="subtitle2">
-        Members: {memberNames.join(", ")}
-      </Typography>
+        <Typography variant="subtitle2">
+          Members: {memberNames.join(", ")}
+        </Typography>
+      </Box>
 
-      <div ref={messagesListRef} style={{ flexGrow: 1, overflow: "auto" }}>
+      <Box {...{ ref: messagesListRef }} flexGrow={1} overflow="auto" paddingX={2} marginX={-2}>
         {
           !loading &&
           messages.map((messageId: string) => (
@@ -65,7 +67,7 @@ export const Conversation: React.FC<ConversationProps> = ({ id }) => {
             />
           ))
         }
-      </div>
+      </Box>
 
       <form onSubmit={onSendMessage}>
         <Box display="flex" padding={1}>
