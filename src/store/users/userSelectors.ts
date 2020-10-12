@@ -1,8 +1,11 @@
 import { createSelector } from 'reselect';
 import { RootState } from 'store/rootReducer';
 import { UsersById, User } from './userTypes';
+import { getCurrentUser } from 'store/auth/authSelectors';
 
 export const getUsersById = (state: RootState) => state.users.byId;
+export const getAllUserIds = (state: RootState) => state.users.allIds;
+export const getUsersLoading = (state: RootState) => state.users.loading;
 
 export const getUser = createSelector(
   getUsersById,
@@ -10,9 +13,27 @@ export const getUser = createSelector(
   (usersById: UsersById, userId: string) => usersById[userId]
 );
 
+export const getUsers = createSelector(
+  getUsersById,
+  getAllUserIds,
+  getCurrentUser,
+  (state: RootState, filter: string = "") => filter,
+  (usersById: UsersById, allUserIds: string[], currUser: string, filter: string) => {
+    return allUserIds.reduce((acc: User[], userId: string) => {
+      const user = usersById[userId];
+
+      if (userId !== currUser && (user.name.first.toLowerCase().includes(filter.toLowerCase()) || user.name.last.toLowerCase().includes(filter.toLowerCase()))) {
+        acc.push(user);
+      }
+
+      return acc;
+    }, []);
+  }
+);
+
 export const getUserFullName = createSelector(
   getUser,
-  (user: User) => user ? `${user.name.first} ${user.name.last}` : ''
+  (user: User) => user ? `${user.name.first} ${user.name.last}` : ""
 );
 
 export const getUserFullNames = createSelector(

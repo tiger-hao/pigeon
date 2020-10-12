@@ -9,6 +9,13 @@ const conversationsById: Reducer<ConversationsById, ConversationAction> = (state
         ...state,
         ...action.conversationsById
       };
+    case ConversationActionTypes.CREATE_CONVERSATION_SUCCESS:
+      const { conversation } = action;
+
+      return {
+        ...state,
+        [conversation.id]: conversation
+      };
     case MessageActionTypes.GET_MESSAGES_SUCCESS: {
       const { conversationId, allMessages } = action;
       const conversation = state[conversationId];
@@ -29,7 +36,7 @@ const conversationsById: Reducer<ConversationsById, ConversationAction> = (state
         ...state,
         [conversationId]: {
           ...conversation,
-          messages: conversation.messages.concat(message.id)
+          messages: [...conversation.messages, message.id]
         }
       };
     }
@@ -42,6 +49,8 @@ const allConversations: Reducer<string[], ConversationAction> = (state = [], act
   switch (action.type) {
     case ConversationActionTypes.GET_CONVERSATIONS_SUCCESS:
       return action.allConversations;
+    case ConversationActionTypes.CREATE_CONVERSATION_SUCCESS:
+      return [action.conversation.id, ...state];
     default:
       return state;
   }

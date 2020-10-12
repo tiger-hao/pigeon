@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Input from '@material-ui/core/Input';
-import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
+import SendIcon from '@material-ui/icons/Send';
 import { Message } from 'components/Message';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMessagesRequest, sendMessage } from 'store/messages/messageActions';
@@ -74,15 +74,12 @@ export const Conversation: React.FC<ConversationProps> = ({ id }) => {
           <Input style={{ flexGrow: 1 }} placeholder="Send a message" value={message}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)}
           />
-          <Button
+          <IconButton
             type="submit"
-            variant="contained"
-            color="primary"
-            endIcon={<Icon>send</Icon>}
             disabled={!message}
           >
-            Send
-          </Button>
+            <SendIcon />
+          </IconButton>
         </Box>
       </form>
     </Box>

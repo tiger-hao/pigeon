@@ -17,20 +17,17 @@ export interface NewConversation {
   members: string[];
 }
 
-export interface CreateConversationResponse {
-  conversation: Conversation;
-}
-
+export type CreateConversationResponse = NormalizedSchema<NormalizedConversations, string>;
 export type GetConversationsResponse = NormalizedSchema<NormalizedConversations, string[]>;
 
 export async function createConversation(conversation: NewConversation): Promise<CreateConversationResponse> {
-  const { data: { data } } = await dataRequestor.post<ApiResponse<CreateConversationResponse>>('/users/me/conversations/', conversation);
+  const { data: { data } } = await dataRequestor.post<ApiResponse<{ conversation: Conversation; }>>('/users/me/conversations/', conversation);
 
   if (!data) {
     throw Error("Data expected but not received from API response");
   }
 
-  return data;
+  return normalize(data.conversation, conversationSchema);
 }
 
 export async function getConversations(): Promise<GetConversationsResponse> {

@@ -23,7 +23,7 @@ export interface NormalizedConversation {
   id: Conversation['id'];
   name: Conversation['name'];
   members: string[];
-  lastMessage: string;
+  messages: string[];
 }
 
 export interface NormalizedConversations {
@@ -52,7 +52,15 @@ export const messageSchema = new schema.Entity<Message>('messages',
   }
 );
 
-export const conversationSchema = new schema.Entity<Conversation>('conversations', {
-  members: [userSchema],
-  lastMessage: messageSchema
-});
+export const conversationSchema = new schema.Entity<Conversation>('conversations',
+  {
+    members: [userSchema],
+    lastMessage: messageSchema
+  },
+  {
+    processStrategy: (entity) => ({
+      ...entity,
+      messages: entity.lastMessage ? [entity.lastMessage.id] : []
+    })
+  }
+);

@@ -15,7 +15,10 @@ export interface ConversationsById {
 export enum ConversationActionTypes {
   GET_CONVERSATIONS_REQUEST = 'pigeon/conversations/GET_CONVERSATIONS_REQUEST',
   GET_CONVERSATIONS_SUCCESS = 'pigeon/conversations/GET_CONVERSATIONS_SUCCESS',
-  GET_CONVERSATIONS_FAILURE = 'pigeon/conversations/GET_CONVERSATIONS_FAILURE'
+  GET_CONVERSATIONS_FAILURE = 'pigeon/conversations/GET_CONVERSATIONS_FAILURE',
+  CREATE_CONVERSATION_REQUEST = 'pigeon/conversations/CREATE_CONVERSATION_REQUEST',
+  CREATE_CONVERSATION_SUCCESS = 'pigeon/conversations/CREATE_CONVERSATION_SUCCESS',
+  CREATE_CONVERSATION_FAILURE = 'pigeon/conversations/CREATE_CONVERSATION_FAILURE'
 }
 
 export type GetConversationsRequestAction = Action<ConversationActionTypes.GET_CONVERSATIONS_REQUEST>;
@@ -29,5 +32,19 @@ export interface GetConversationsFailureAction extends Action<ConversationAction
   error: string;
 }
 
-export type ConversationAction = GetConversationsRequestAction | GetConversationsSuccessAction
-  | GetConversationsFailureAction | GetMessagesSuccessAction | AddMessageAction | SendMessageAction;
+export interface CreateConversationRequestAction extends Action<ConversationActionTypes.CREATE_CONVERSATION_REQUEST> {
+  name: string;
+  members: string[];
+}
+
+export interface CreateConversationSuccessAction extends Action<ConversationActionTypes.CREATE_CONVERSATION_SUCCESS> {
+  conversation: Conversation;
+}
+
+export interface CreateConversationFailureAction extends Action<ConversationActionTypes.CREATE_CONVERSATION_FAILURE> {
+  error: string;
+}
+
+export type ConversationAction = GetConversationsRequestAction | GetConversationsSuccessAction | GetConversationsFailureAction
+  | CreateConversationRequestAction | CreateConversationSuccessAction | CreateConversationFailureAction
+  | GetMessagesSuccessAction | AddMessageAction | SendMessageAction;

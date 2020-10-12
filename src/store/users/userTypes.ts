@@ -17,7 +17,9 @@ export enum UserActionTypes {
   ADD_USERS = 'pigeon/users/ADD_USERS'
 }
 
-export type GetUsersRequestAction = Action<UserActionTypes.GET_USERS_REQUEST>;
+export interface GetUsersRequestAction extends Action<UserActionTypes.GET_USERS_REQUEST> {
+  params?: Record<string, string>;
+}
 
 export interface GetUsersSuccessAction extends Action<UserActionTypes.GET_USERS_SUCCESS> {
   usersById: UsersById;

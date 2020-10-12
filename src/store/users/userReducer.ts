@@ -17,7 +17,7 @@ const usersById: Reducer<UsersById, UserAction> = (state = {}, action) => {
 const allUsers: Reducer<string[], UserAction> = (state = [], action) => {
   switch (action.type) {
     case UserActionTypes.GET_USERS_SUCCESS:
-      return action.allUsers;
+      return [...new Set([...state, ...action.allUsers])];
     default:
       return state;
   }

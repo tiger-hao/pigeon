@@ -69,8 +69,9 @@ export async function getUser(userId: string = 'me'): Promise<GetUserResponse> {
   return data;
 }
 
-export async function getUsers(): Promise<GetUsersResponse> {
-  const { data: { data } } = await dataRequestor.get<ApiResponse<{ users: User[] }>>('/users');
+export async function getUsers(params?: Record<string, string>): Promise<GetUsersResponse> {
+  const query = new URLSearchParams(params).toString();
+  const { data: { data } } = await dataRequestor.get<ApiResponse<{ users: User[] }>>(`/users${query && `?${query}`}`);
 
   if (!data) {
     throw Error("Data expected but not received from API response");

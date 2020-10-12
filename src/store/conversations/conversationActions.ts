@@ -1,5 +1,6 @@
 import {
-  ConversationsById, ConversationActionTypes, GetConversationsRequestAction, GetConversationsSuccessAction, GetConversationsFailureAction
+  ConversationsById, Conversation, ConversationActionTypes, GetConversationsRequestAction, GetConversationsSuccessAction, GetConversationsFailureAction,
+  CreateConversationRequestAction, CreateConversationSuccessAction, CreateConversationFailureAction
 } from './conversationTypes';
 
 export const getConversationsRequest = (): GetConversationsRequestAction => ({
@@ -14,5 +15,21 @@ export const getConversationsSuccess = (conversationsById: ConversationsById, al
 
 export const getConversationsFailure = (error: string): GetConversationsFailureAction => ({
   type: ConversationActionTypes.GET_CONVERSATIONS_FAILURE,
+  error
+});
+
+export const createConversationRequest = (name: string, members: string[]): CreateConversationRequestAction => ({
+  type: ConversationActionTypes.CREATE_CONVERSATION_REQUEST,
+  name,
+  members
+});
+
+export const createConversationSuccess = (conversation: Conversation): CreateConversationSuccessAction => ({
+  type: ConversationActionTypes.CREATE_CONVERSATION_SUCCESS,
+  conversation
+});
+
+export const createConversationFailure = (error: string): CreateConversationFailureAction => ({
+  type: ConversationActionTypes.CREATE_CONVERSATION_FAILURE,
   error
 });
