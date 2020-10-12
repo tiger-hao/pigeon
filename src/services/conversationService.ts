@@ -13,8 +13,8 @@ export interface Conversation {
 }
 
 export interface NewConversation {
-  name: string;
   members: string[];
+  name?: string;
 }
 
 export type CreateConversationResponse = NormalizedSchema<NormalizedConversations, string>;

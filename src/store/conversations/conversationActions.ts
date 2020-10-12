@@ -18,10 +18,10 @@ export const getConversationsFailure = (error: string): GetConversationsFailureA
   error
 });
 
-export const createConversationRequest = (name: string, members: string[]): CreateConversationRequestAction => ({
+export const createConversationRequest = (members: string[], name?: string): CreateConversationRequestAction => ({
   type: ConversationActionTypes.CREATE_CONVERSATION_REQUEST,
-  name,
-  members
+  members,
+  name
 });
 
 export const createConversationSuccess = (conversation: Conversation): CreateConversationSuccessAction => ({

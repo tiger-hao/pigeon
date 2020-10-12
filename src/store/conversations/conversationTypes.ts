@@ -33,8 +33,8 @@ export interface GetConversationsFailureAction extends Action<ConversationAction
 }
 
 export interface CreateConversationRequestAction extends Action<ConversationActionTypes.CREATE_CONVERSATION_REQUEST> {
-  name: string;
   members: string[];
+  name?: string;
 }
 
 export interface CreateConversationSuccessAction extends Action<ConversationActionTypes.CREATE_CONVERSATION_SUCCESS> {

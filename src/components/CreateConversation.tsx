@@ -32,8 +32,8 @@ export const CreateConversation: React.FC = () => {
 
     if (members.length) {
       dispatch(createConversationRequest(
-        name ? name : members.map(member => member.name.first).join(", "),
-        members.map(member => member.id)
+        members.map(member => member.id),
+        name || undefined
       ));
     }
 
@@ -66,11 +66,6 @@ export const CreateConversation: React.FC = () => {
           <DialogContent>
             <Grid container spacing={2}>
               <Grid item xs={12}>
-                <TextField fullWidth variant="outlined" label="Name" placeholder="Conversation name" value={name}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12}>
                 <Autocomplete
                   multiple
                   options={users}
@@ -88,6 +83,11 @@ export const CreateConversation: React.FC = () => {
                       fullWidth
                     />
                   )}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField fullWidth variant="outlined" label="Name" placeholder="Conversation name" helperText="Optional"
+                  value={name} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
                 />
               </Grid>
             </Grid>
