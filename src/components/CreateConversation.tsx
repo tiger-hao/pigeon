@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -21,11 +21,15 @@ export const CreateConversation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const onShowModal = () => setIsOpen(true);
   const onHideModal = () => setIsOpen(false);
-
   const [name, setName] = useState("");
   const [members, setMembers] = useState<User[]>([]);
-
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!isOpen) {
+      setMembers([]);
+    }
+  }, [isOpen]);
 
   const onCreateConversation = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

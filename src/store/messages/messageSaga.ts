@@ -6,7 +6,10 @@ import { getMessagesSuccess, getMessagesFailure, addMessage } from './messageAct
 import { parseError } from 'services/parseError';
 import { addUsers } from 'store/users/userActions';
 import { getCurrentUser } from 'store/auth/authSelectors';
+import { ConversationActionTypes, ConversationsById } from 'store/conversations/conversationTypes';
+import { getConversationsById } from 'store/conversations/conversationSelectors';
 import { connectSocket, createSocketChannel, NewMessage } from './messageSocket';
+import { getConversationsRequest } from 'store/conversations/conversationActions';
 
 function* getMessagesSaga({ conversationId }: GetMessagesRequestAction) {
   try {
@@ -50,6 +53,13 @@ export function* receiveMessageSaga() {
   while (true) {
     try {
       const { message, conversationId }: NewMessage = yield take(socketChannel);
+      const conversationsById: ConversationsById = yield select(getConversationsById);
+
+      if (!conversationsById.hasOwnProperty(conversationId)) {
+        yield put(getConversationsRequest());
+        yield take(ConversationActionTypes.GET_CONVERSATIONS_SUCCESS);
+      }
+
       yield put(addMessage(message, conversationId));
     } catch (err) {
       console.error('Socket Error:', err);
