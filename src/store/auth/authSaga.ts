@@ -16,10 +16,11 @@ function* loginSaga({ loginInfo, setFormikErrors }: LoginRequestAction) {
   } catch (err) {
     if (err.response && err.response.data && err.response.data.data) {
       setFormikErrors(err.response.data.data);
+      yield put(loginFailure(""));
+    } else {
+      const error = parseError(err);
+      yield put(loginFailure(error));
     }
-
-    const error = parseError(err);
-    yield put(loginFailure(error));
   }
 }
 
@@ -37,10 +38,11 @@ function* signupSaga({ signupInfo, setFormikErrors }: SignupRequestAction) {
   } catch (err) {
     if (err.response && err.response.data && err.response.data.data) {
       setFormikErrors(err.response.data.data);
+      yield put(signupFailure(""));
+    } else {
+      const error = parseError(err);
+      yield put(signupFailure(error));
     }
-
-    const error = parseError(err);
-    yield put(signupFailure(error));
   }
 }
 

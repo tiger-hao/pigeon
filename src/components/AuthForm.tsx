@@ -79,11 +79,13 @@ export class AuthForm<T extends object> extends React.Component<AuthFormProps<T>
                       );
                     })
                   }
-                  <Grid item xs={12}>
-                    <FormHelperText error>
-                      {error}
-                    </FormHelperText>
-                  </Grid>
+                  {error &&
+                    <Grid item xs={12}>
+                      <FormHelperText error>
+                        {error}
+                      </FormHelperText>
+                    </Grid>
+                  }
 
                   <Grid item xs={9}>
                     {redirectElement}
