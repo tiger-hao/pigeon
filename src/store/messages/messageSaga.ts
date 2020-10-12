@@ -1,9 +1,12 @@
-import { takeLatest, call, put, all } from 'redux-saga/effects';
+import { EventChannel } from 'redux-saga';
+import { takeLatest, call, put, all, fork, select, take } from 'redux-saga/effects';
 import { getMessages, GetMessagesResponse, sendMessage, SendMessageResponse } from 'services/messageService';
 import { MessageActionTypes, GetMessagesRequestAction, SendMessageAction } from './messageTypes';
 import { getMessagesSuccess, getMessagesFailure, addMessage } from './messageActions';
 import { parseError } from 'services/parseError';
 import { addUsers } from 'store/users/userActions';
+import { getCurrentUser } from 'store/auth/authSelectors';
+import { connectSocket, createSocketChannel, NewMessage } from './messageSocket';
 
 function* getMessagesSaga({ conversationId }: GetMessagesRequestAction) {
   try {
@@ -39,9 +42,26 @@ function* sendMessageSaga({ message: messageText, conversationId }: SendMessageA
   }
 }
 
+export function* receiveMessageSaga() {
+  const userId = yield select(getCurrentUser);
+  const socket: SocketIOClient.Socket = yield call(connectSocket);
+  const socketChannel: EventChannel<NewMessage> = yield call(createSocketChannel, socket, userId);
+
+  while (true) {
+    try {
+      const { message, conversationId }: NewMessage = yield take(socketChannel);
+      yield put(addMessage(message, conversationId));
+    } catch (err) {
+      console.error('Socket Error:', err);
+      socketChannel.close();
+    }
+  }
+}
+
 export function* messageSaga() {
   yield all([
     takeLatest(MessageActionTypes.GET_MESSAGES_REQUEST, getMessagesSaga),
-    takeLatest(MessageActionTypes.SEND_MESSAGE, sendMessageSaga)
+    takeLatest(MessageActionTypes.SEND_MESSAGE, sendMessageSaga),
+    fork(receiveMessageSaga)
   ]);
 }

@@ -12,10 +12,10 @@ import { SignupPage } from 'pages/SignupPage';
 import { MessagesPage } from 'pages/MessagesPage';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from 'store/auth/authActions';
-import { RootState } from 'store/rootReducer';
+import { getToken } from 'store/auth/authSelectors';
 
 const App: React.FC = () => {
-  const loggedIn = !!useSelector((state: RootState) => state.auth.token);
+  const loggedIn = !!useSelector(getToken);
   const dispatch = useDispatch();
 
   return (

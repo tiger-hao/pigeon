@@ -1,11 +1,11 @@
 import React from "react";
 import { Route, RouteProps, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { RootState } from "store/rootReducer";
+import { getToken } from 'store/auth/authSelectors';
 import { Routes } from "constants/routes";
 
 export const PrivateRoute: React.FC<RouteProps> = ({ children, ...routeProps }) => {
-  const loggedIn = !!useSelector((state: RootState) => state.auth.token);
+  const loggedIn = !!useSelector(getToken);
 
   return (
     <Route {...routeProps}>

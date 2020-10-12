@@ -5,13 +5,14 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'store/rootReducer';
 import { getMessage } from 'store/messages/messageSelectors';
 import { getUserFullName } from 'store/users/userSelectors';
+import { getCurrentUser } from 'store/auth/authSelectors';
 
 export interface MessageProps {
   id: string;
 }
 
 export const Message: React.FC<MessageProps> = ({ id }) => {
-  const userId = useSelector((state: RootState) => state.auth.userId);
+  const userId = useSelector(getCurrentUser);
   const { sender: senderId, text, createdAt } = useSelector((state: RootState) => getMessage(state, id));
   const sender = useSelector((state: RootState) => getUserFullName(state, senderId));
 
