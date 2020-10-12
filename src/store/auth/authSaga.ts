@@ -23,7 +23,7 @@ function* loginSaga({ loginInfo, setFormikErrors }: LoginRequestAction) {
   }
 }
 
-function* signupSaga({ signupInfo }: SignupRequestAction) {
+function* signupSaga({ signupInfo, setFormikErrors }: SignupRequestAction) {
   try {
     const { access_token, token_type }: UserTokenResponse = yield call(signupUser, signupInfo);
     const token = `${token_type} ${access_token}`;
@@ -35,6 +35,10 @@ function* signupSaga({ signupInfo }: SignupRequestAction) {
       ...signupInfo
     }));
   } catch (err) {
+    if (err.response && err.response.data && err.response.data.data) {
+      setFormikErrors(err.response.data.data);
+    }
+
     const error = parseError(err);
     yield put(signupFailure(error));
   }

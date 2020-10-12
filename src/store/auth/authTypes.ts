@@ -36,6 +36,7 @@ export type LogoutAction = Action<AuthActionTypes.LOGOUT>;
 
 export interface SignupRequestAction extends Action<AuthActionTypes.SIGNUP_REQUEST> {
   signupInfo: UserSignupInfo;
+  setFormikErrors: Function;
 }
 
 export interface SignupSuccessAction extends Action<AuthActionTypes.SIGNUP_SUCCESS> {

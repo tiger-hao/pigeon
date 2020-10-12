@@ -25,9 +25,10 @@ export const logout = (): LogoutAction => ({
   type: AuthActionTypes.LOGOUT
 });
 
-export const signupRequest = (signupInfo: UserSignupInfo): SignupRequestAction => ({
+export const signupRequest = (signupInfo: UserSignupInfo, setFormikErrors: Function): SignupRequestAction => ({
   type: AuthActionTypes.SIGNUP_REQUEST,
-  signupInfo
+  signupInfo,
+  setFormikErrors
 });
 
 export const signupSuccess = (token: string, userId: string): SignupSuccessAction => ({

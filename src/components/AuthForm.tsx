@@ -4,6 +4,7 @@ import { TextField } from 'formik-material-ui';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { ObjectSchema } from 'yup';
@@ -34,7 +35,8 @@ export class AuthForm<T extends object> extends React.Component<AuthFormProps<T>
       validationSchema,
       redirectElement,
       onSubmit,
-      loading
+      loading,
+      error
     } = this.props;
 
     const initialValues: T = fields.reduce((acc: T, field: FormField<T>) => {
@@ -77,11 +79,15 @@ export class AuthForm<T extends object> extends React.Component<AuthFormProps<T>
                       );
                     })
                   }
+                  <Grid item xs={12}>
+                    <FormHelperText error>
+                      {error}
+                    </FormHelperText>
+                  </Grid>
 
                   <Grid item xs={9}>
                     {redirectElement}
                   </Grid>
-
                   <Grid item xs={3}>
                     <Button type="submit" variant="contained" color="primary" fullWidth>
                       {loading
